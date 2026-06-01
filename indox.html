@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="google-adsense-account" content="ca-pub-9178907045493989">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9178907045493989" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warranty sticker validation</title>
@@ -8,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; padding-bottom: 60px; }
         .container { max-width: 100%; margin: 0 auto; padding: 15px; background-color: #fff; }
         .header-content { text-align: left; margin-bottom: 30px; }
         .logo { width: 100px; margin-bottom: 10px; }
@@ -23,28 +25,37 @@
         .input-container { width: 45%; max-width: 300px; display: flex; align-items: center; border: 2px solid #cccccc; border-radius: 25px 0 0 25px; overflow: hidden; margin: 10px auto; height: 40px; }
         .input-container input { flex: 1; padding: 8px 12px; border: none; font-size: 0.9rem; outline: none; border-radius: 25px 0 0 25px; text-align: left; height: 100%; }
         .input-container button { padding: 0 20px; background-color: #a8822b; color: white; border: none; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; height: 100%; border-radius: 0; min-width: 80px; }
-        .input-container button.pressed { background-color: #666 !important; }
+        .input-container button.pressed { background-color: white !important; color: #a8822b !important; }
         #result { margin: 20px auto; padding: 25px; font-size: 1.1rem; max-width: 450px; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; }
         .success { color: #28a745; font-weight: bold; }
-        .error { color: #dc3545; font-weight: bold; }
-        @media (max-width: 768px) { .input-container { width: 80%; } }
+        .error { color: #ff0000; font-weight: bold; }
+        
+        /* تنسيق الروابط الذكية في الأسفل */
+        .links { display: flex; justify-content: space-between; margin-top: 40px; text-align: left; padding: 20px 40px; background: #fff; border-top: 1px solid #eee; }
+        .links-section { flex: 1; margin-left: 15px; }
+        .links-section h2 { text-align: left; font-size: 1.2rem; margin-bottom: 10px; color: #2c3e50; }
+        .links-grid { display: flex; flex-direction: column; gap: 5px; }
+        .link-row { display: flex; justify-content: space-between; }
+        .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; }
+        .links-section a:hover { color: #a8822b; text-decoration: underline; }
+
+        .bottom-buttons { display: flex; justify-content: space-around; padding: 10px; background: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+        .bottom-buttons button { background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #777; }
+        
+        @media (max-width: 768px) { .input-container { width: 80%; } .links { flex-direction: column; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header-content">
-            <img src="https://i.postimg.cc/zvf2c47L/image.png" alt="Website Logo" class="logo">
+            <img src="https://i.postimg.cc/zvf2c47L/image.png" alt="Logo" class="logo">
             <div class="breadcrumb">
                 <a href="https://arabcomputers.com.sa/">Home</a> / <a href="https://arabcomputers.com.sa/check-sticker/">Check sticker</a>
             </div>
         </div>
 
         <h2>Warranty sticker validation</h2>
-
-        <p class="main-description">
-            Check if the warranty sticker on your product is genuine.<br>
-            تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف
-        </p>
+        <p class="main-description">Check if the warranty sticker on your product is genuine.<br>تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف</p>
  
         <span class="arabic-text">الشكل القديم </span>
         <img src="https://i.postimg.cc/1XhL17mC/Screenshot-20251026-022901.jpg" alt="Banner 1" class="banner">
@@ -52,10 +63,7 @@
         <span class="arabic-text">الشكل الجديد</span>
         <img src="https://i.ibb.co/3m3r1TWK/Warranty-sticker-26.jpg" alt="Banner 2" class="banner">
         
-        <p class="input-instruction">
-            Enter the number shown on the sticker in this box<br>
-            أدخل الرقم الموجود على الملصق هنا   
-        </p>
+        <p class="input-instruction">Enter the number shown on the sticker in this box<br>أدخل الرقم الموجود على الملصق هنا</p>
 
         <div class="input-container">
             <input type="text" id="numberInput" placeholder="XXXXXX">
@@ -63,30 +71,49 @@
         </div>
 
         <div id="result"></div>
+
+        <!-- قسم الروابط الذكية -->
+        <div class="links">
+            <div class="links-section">
+                <h2>Useful Links</h2>
+                <div class="links-grid">
+                    <a href="https://arabcomputers.com.sa/">Home</a>
+                    <a href="https://arabcomputers.com.sa/point-of-sales/">Point Of Sales</a>
+                    <a href="https://arabcomputers.com.sa/contact/">Contact Us</a>
+                </div>
+            </div>
+            <div class="links-section">
+                <h2>Products</h2>
+                <div class="links-grid">
+                    <a href="https://arabcomputers.com.sa/product-category/iphone/">iPhone</a>
+                    <a href="https://arabcomputers.com.sa/product-category/ipad/">iPad</a>
+                    <a href="https://arabcomputers.com.sa/product-category/mac/">Mac</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-buttons">
+        <button onclick="window.location.href='https://arabcomputers.com.sa/'">🏠</button>
+        <button>☰</button>
     </div>
 
     <script>
-        // --- إعدادات Supabase (كما هي في كودك الأصلي) ---
         const SUPABASE_URL = 'https://iejaflpeniiovjouvxbb.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_z09VVn-Gx2Ulvxg0gv7WHQ_S6QE28Ex';
-
         const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         async function validateForm(event) {
-            if (event) event.preventDefault();
+            event.preventDefault();
             const input = document.getElementById("numberInput").value.trim().toUpperCase();
             const resultElement = document.getElementById("result");
             const button = document.getElementById("checkBtn");
 
             if (!input) return;
-
             button.disabled = true;
-            button.classList.add('pressed');
-            resultElement.textContent = "Checking... جاري التحقق...";
-            resultElement.className = '';
+            resultElement.textContent = "Checking...";
 
             try {
-                // البحث فقط عن الرمز في جدول 'verification_codes'
                 const { data, error } = await _supabase
                     .from('verification_codes')
                     .select('code')
@@ -94,29 +121,18 @@
                     .maybeSingle();
 
                 if (error) throw error;
-
                 if (data) {
-                    // الرمز موجود وصحيح
-                    resultElement.textContent = "The code is correct ✅ هذا الرمز صحيح";
-                    resultElement.className = 'success';
+                    resultElement.innerHTML = "<span class='success'>The code is correct ✅ هذا الرمز صحيح</span>";
                 } else {
-                    // الرمز غير موجود
-                    resultElement.textContent = "Code not found ❌ هذا الرمز غير موجود !";
-                    resultElement.className = 'error';
+                    resultElement.innerHTML = "<span class='error'>Code not found ❌ هذا الرمز غير موجود !</span>";
                 }
             } catch (err) {
-                console.error("Connection Error:", err);
-                resultElement.textContent = "Error ❌ حدث خطأ في الاتصال";
-                resultElement.className = 'error';
+                resultElement.innerHTML = "<span class='error'>Error ❌ حدث خطأ في الاتصال</span>";
             } finally {
                 button.disabled = false;
-                button.classList.remove('pressed');
             }
         }
-
-        document.getElementById('numberInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') validateForm(e);
-        });
     </script>
 </body>
 </html>
+ 
