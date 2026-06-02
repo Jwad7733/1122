@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warranty sticker validation</title>
-    <!-- إضافة مكتبة الكاميرا من الكود الأول -->
+    <!-- إضافة مكتبة الكاميرا -->
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         * {
@@ -126,19 +126,27 @@
             margin: 15px 0;
         }
 
-        /* --- استبدال تنسيقات مربع التحقق بتنسيقات الكود الأول --- */
+        /* --- تنسيق مربع الإدخال مع زر الكاميرا فقط --- */
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 20px auto;
+        }
+
         .input-container {
             width: 90%;
             max-width: 350px;
             display: flex;
             align-items: center;
             border: 2px solid #cccccc;
-            border-radius: 25px 0 0 25px; /* يسار دائري، يمين حاد */
+            border-radius: 25px; /* دائري بالكامل الآن لأنه منفصل */
             overflow: hidden;
-            margin: 10px auto;
             height: 50px;
             background: white;
         }
+
         .input-container input { 
             flex: 1; 
             padding: 0 15px; 
@@ -148,6 +156,7 @@
             height: 100%; 
             text-align: left; 
         }
+
         .btn-action { 
             height: 100%; 
             border: none; 
@@ -159,22 +168,40 @@
             justify-content: center; 
             transition: all 0.3s ease;
         }
-        .btn-action.pressed {
-            background-color: white !important;
-            color: #a8822b !important;
-        }
+
         .scan-btn { 
-            padding: 0 15px; 
-            border-right: 1px solid rgba(255,255,255,0.2); 
-        }
-        .check-btn { 
-            padding: 0 20px; 
-            font-size: 0.9rem; 
-            min-width: 90px; 
-            font-weight: bold; 
+            padding: 0 20px;
+            border-radius: 0 23px 23px 0; /* تدوير الجهة اليمنى للزر داخل الحاوية */
         }
 
-        /* --- إضافة تنسيقات واجهة الكاميرا من الكود الأول --- */
+        /* --- تنسيق زر Check المنفصل --- */
+        .check-btn-standalone {
+            width: 90%;
+            max-width: 350px;
+            height: 50px;
+            background-color: #a8822b;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .check-btn-standalone:hover {
+            background-color: #8e6d24;
+            transform: translateY(-2px);
+        }
+
+        .check-btn-standalone.pressed {
+            background-color: white !important;
+            color: #a8822b !important;
+            border: 2px solid #a8822b;
+        }
+
+        /* --- تنسيقات واجهة الكاميرا --- */
         #camera-expert-ui { 
             display: none; 
             width: 95%; 
@@ -219,7 +246,6 @@
             font-size: 0.9rem;
         }
         #reader { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; display: none; }
-        /* -------------------------------------------------- */
 
         #result {
             margin: 20px auto;
@@ -235,15 +261,8 @@
             border: none;
         }
 
-        .success {
-            color: #90EE90;
-            font-weight: bold;
-        }
-
-        .error {
-            color: #ff0000;
-            font-weight: bold;
-        }
+        .success { color: #28a745; font-weight: bold; }
+        .error { color: #ff0000; font-weight: bold; }
 
         .links {
             display: flex;
@@ -253,64 +272,14 @@
             padding-left: 40px;
         }
 
-        .links-section {
-            flex: 1;
-            margin-left: 15px;
-            text-align: left;
-        }
-
-        .links-section h2 {
-            text-align: left;
-            font-size: 1.2rem;
-            margin: 0 0 8px 0;
-            color: #2c3e50;
-        }
-
-        .links-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .link-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 18px;
-        }
-
-        .link-left {
-            text-align: left;
-            flex: 1;
-        }
-
-        .link-right {
-            text-align: left;
-            flex: 1;
-            padding-left: 5px;
-            margin-left: -40px;
-        }
-
-        .links-section a {
-            color: #333;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .links-section a:hover {
-            color: #a8822b;
-            text-decoration: underline;
-        }
-
-        .contact-info {
-            margin-top: 6px;
-        }
-
-        .contact-info p {
-            margin: 2px 0;
-            line-height: 1.2;
-            font-size: 0.9rem;
-        }
+        .links-section { flex: 1; margin-left: 15px; text-align: left; }
+        .links-section h2 { text-align: left; font-size: 1.2rem; margin: 0 0 8px 0; color: #2c3e50; }
+        .links-grid { display: flex; flex-direction: column; gap: 2px; }
+        .link-row { display: flex; justify-content: space-between; align-items: center; min-height: 18px; }
+        .link-left { text-align: left; flex: 1; }
+        .link-right { text-align: left; flex: 1; padding-left: 5px; margin-left: -40px; }
+        .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; }
+        .links-section a:hover { color: #a8822b; text-decoration: underline; }
 
         .bottom-buttons {
             display: flex;
@@ -327,57 +296,15 @@
         }
 
         .bottom-buttons button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: #777;
-            padding: 5px 10px;
-            transition: color 0.3s ease;
-            margin: 0 10px;
+            background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #777; padding: 5px 10px;
         }
 
-        .bottom-buttons button:hover {
-            color: #333;
-        }
-
-        .home-button {
-            margin-left: 20px;
-        }
-
-        .menu-button {
-            margin-right: 20px;
-        }
-
-        .home-icon {
-            width: 20px;
-            height: 20px;
-            fill: none;
-            stroke: #777;
-            stroke-width: 2;
-            transition: stroke 0.3s ease;
-        }
-
-        .home-button:hover .home-icon {
-            stroke: #333;
-        }
+        .home-icon { width: 20px; height: 20px; fill: none; stroke: #777; stroke-width: 2; }
 
         @media (max-width: 768px) {
-            .links {
-                flex-direction: column;
-                padding-left: 20px;
-            }
-
-            .links-section {
-                margin-left: 0;
-                margin-top: 15px;
-            }
-
-            .link-right {
-                margin-left: 0;
-                text-align: center;
-                padding-left: 0;
-            }
+            .links { flex-direction: column; padding-left: 20px; }
+            .links-section { margin-left: 0; margin-top: 15px; }
+            .link-right { margin-left: 0; text-align: center; padding-left: 0; }
         }
     </style>
 </head>
@@ -408,29 +335,29 @@
             أدخل الرقم الموجود على الملصق هنا   
         </p>
 
-        <!-- --- استبدال حاوية الإدخال بحاوية الكود الأول --- -->
-        <div class="input-container">
-            <input type="text" id="numberInput" placeholder="أدخل الرقم هنا">
-            <button class="btn-action scan-btn" onclick="toggleExpertUI()" title="فتح خيارات الكاميرا">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
-            </button>
-            <button class="btn-action check-btn" onclick="validateForm(event)">Check</button>
+        <div class="input-wrapper">
+            <!-- حاوية الإدخال مع زر الكاميرا -->
+            <div class="input-container">
+                <input type="text" id="numberInput" placeholder="أدخل الرقم هنا">
+                <button class="btn-action scan-btn" onclick="toggleExpertUI()" title="فتح خيارات الكاميرا">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
+                </button>
+            </div>
+
+            <!-- زر Check منفصل -->
+            <button class="check-btn-standalone" onclick="validateForm(event)">Check</button>
         </div>
 
-        <!-- إضافة واجهة الكاميرا من الكود الأول -->
+        <!-- واجهة الكاميرا -->
         <div id="camera-expert-ui">
             <span class="expert-title">المسح الضوئي القائم على الكاميرا</span>
-            
             <label class="cam-select-label" id="cam-count-label">اختر الكاميرا (جاري البحث...)</label>
             <select id="camera-select">
                 <option value="">جاري تحميل الكاميرات...</option>
             </select>
-            
             <button class="start-scan-btn" onclick="startExpertScan()">ابدأ المسح</button>
-            
             <span class="file-scan-option" onclick="document.getElementById('file-input').click()">مسح ملف صورة ضوئيًا</span>
             <input type="file" id="file-input" accept="image/*" style="display:none" onchange="scanFile(this)">
-            
             <div id="reader"></div>
             <button id="stop-btn" class="start-scan-btn" style="background:#dc3545; margin-top:10px; display:none;" onclick="stopScanning()">إيقاف المسح</button>
         </div>
@@ -475,11 +402,9 @@
                 </div>
                 <div class="link-row">
                     <div class="link-left"><a href="https://arabcomputers.com.sa/point-of-sales/">Point Of Sales</a></div>
-                    <div class="link-right"></div>
                 </div>
                 <div class="link-row">
                     <div class="link-left"><a href="https://arabcomputers.com.sa/contact/">Contact Us</a></div>
-                    <div class="link-right"></div>
                 </div>
             </div>
         </div>
@@ -511,14 +436,12 @@
                 </div>
                 <div class="link-row">
                     <div class="link-left"><a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Service Providers</a></div>
-                    <div class="link-right"><a href="https://arabcomputers.com.sa/terms-and-conditions/">Condition</a></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // قاعدة البيانات والتجزئة من الكود الثاني (للحفاظ على الوظيفة الأصلية)
         const codeDatabase = {};
         function simpleHash(str) {
             let hash = 0;
@@ -530,13 +453,11 @@
             return hash.toString();
         }
 
-        // متغيرات الكاميرا من الكود الأول
         let html5QrCode;
         const resultDiv = document.getElementById('result');
         const cameraSelect = document.getElementById('camera-select');
         const camCountLabel = document.getElementById('cam-count-label');
 
-        // دوال الكاميرا من الكود الأول
         async function toggleExpertUI() {
             const ui = document.getElementById('camera-expert-ui');
             if (ui.style.display === 'block') {
@@ -557,7 +478,7 @@
                     devices.forEach((device, index) => {
                         const option = document.createElement('option');
                         option.value = device.id;
-                        const label = device.label || `الكاميرا ${index}، مواجهة للـ ${index === 0 ? 'خلف' : 'أمام'}`;
+                        const label = device.label || `الكاميرا ${index}`;
                         option.text = label;
                         cameraSelect.appendChild(option);
                     });
@@ -567,16 +488,12 @@
                 }
             } catch (err) {
                 camCountLabel.innerText = "خطأ في الوصول للكاميرا";
-                console.error(err);
             }
         }
 
         async function startExpertScan() {
             const cameraId = cameraSelect.value;
-            if (!cameraId) {
-                alert("يرجى اختيار كاميرا أولاً");
-                return;
-            }
+            if (!cameraId) { alert("يرجى اختيار كاميرا أولاً"); return; }
             const readerDiv = document.getElementById('reader');
             const stopBtn = document.getElementById('stop-btn');
             readerDiv.style.display = 'block';
@@ -590,12 +507,11 @@
                     (text) => {
                         document.getElementById('numberInput').value = text;
                         stopScanning();
-                        // استدعاء دالة التحقق الأصلية
-                        validateForm({ preventDefault: () => {}, target: document.querySelector('.check-btn') });
+                        validateForm({ preventDefault: () => {}, target: document.querySelector('.check-btn-standalone') });
                     }
                 );
             } catch (err) {
-                alert("تعذر بدء الكاميرا المختارة. تأكد من منح الصلاحيات.");
+                alert("تعذر بدء الكاميرا.");
             }
         }
 
@@ -608,10 +524,10 @@
                 .then(text => {
                     document.getElementById('numberInput').value = text;
                     resultDiv.innerHTML = "✅ تم استخراج الكود بنجاح";
-                    validateForm({ preventDefault: () => {}, target: document.querySelector('.check-btn') });
+                    validateForm({ preventDefault: () => {}, target: document.querySelector('.check-btn-standalone') });
                 })
                 .catch(err => {
-                    resultDiv.innerHTML = "<span class='error'>لم يتم العثور على كود. حاول مرة أخرى.</span>";
+                    resultDiv.innerHTML = "<span class='error'>لم يتم العثور على كود.</span>";
                 });
         }
 
@@ -621,30 +537,21 @@
             document.getElementById('stop-btn').style.display = 'none';
         }
 
-        // تحميل الرموز على دفعات (من الكود الثاني)
         async function loadCodesInBatches() {
-            console.log("بدء تحميل الرموز...");
             const batches = [
                 ["U72S7HDZ719","1TEHZ9945D9","2RVSX23KEV","1CQ1XI9EKO","5U1DXK4KH0","7TQFXY9I84","3NT8XX3FS5","6ZRBXE6YIS","3KLWXX0NUU","3JCNX32W38","2W76XA3TFV","7GZ3XG1YG0","9SXFXR3XPO","8MZMXL3XTP","0AD2X36BDS","3FX7XB2FTQ","7HYQX69ITX","8VVGXZ9UBC","8EA0XT2PYD","1XGNXQ6UO9","9M1XXD3IMV","3FJDXM3IOQ","4K2RXE1HAV","0XU2XA9Q50","3SY7X03U99","2WHTX87MHV","6ABRXA3UF2","4K6FXX7PLT","5LQFXS1HSA","3P90XJ9I9Y","7GUOXS4LYY","4TPIXK8D8L","7FH7XY5LIH","2CS9XC5NWM","0KB8X47GO8","7JCUXV4YQW","7N51X02RQR","8FY0XU3NZZ","1UW9X25AHE","3SGLXD4Q08","8QEGX90XHP","6SKUX92QXH","6ER6XI8HFH","2T20XN5PYF","0YCFXM2W0K","3WQDXH4MW8","5CFPXY9MV4","6D6LXD4VH9","2GB1XS9J73","9VIJXA4YU8","9DNKXY4BW9","1CZMXD6HR2","1SPUXW4RIA","4U22XF6W5T","7HSQXM3T3B","0KRGXM1TYL","5EQ4XJ4FYS","8N1QX67B40","4MLYX42AOW","6U92XB7H24","6ZQQXF0LD0","1D0XXP2LAN","8P6RXR1NK1","1KJSXP3Y04","0OP8XZ4IVJ","1E6TXU8E6Q","1RWIXS2CJN","4EIPX09AFX","6FLYXR2SDH","4H9SXV4TE0","7RZ4XZ2IBU","5C9RX61DMT","8QTJX19QR1","1XJPXF8FP6","9MWOX73M9Z","3U5OXF8AOU","U64ETBR37M","A84KCE70FE","36RUJ786DF","56OLN932KZ","B8JFQRZ4ER"]
             ];
-            let totalLoaded = 0;
             for (let i = 0; i < batches.length; i++) {
-                const batch = batches[i];
-                for (const code of batch) {
-                    const hash = simpleHash(code);
-                    codeDatabase[hash] = true;
-                    totalLoaded++;
+                for (const code of batches[i]) {
+                    codeDatabase[simpleHash(code)] = true;
                 }
                 await new Promise(resolve => setTimeout(resolve, 10));
             }
-            console.log(`✅ تم تحميل ${totalLoaded} رمز بنجاح`);
-            return totalLoaded;
         }
 
-        // دالة التحقق الأصلية من الكود الثاني
         function validateForm(event) {
             if (event && event.preventDefault) event.preventDefault();
-            const button = event.target || document.querySelector('.check-btn');
+            const button = event.target || document.querySelector('.check-btn-standalone');
             const numberInput = document.getElementById("numberInput").value.trim().toUpperCase();
             const resultElement = document.getElementById("result");
             
@@ -672,17 +579,8 @@
             }, 500);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCodesInBatches().then(count => {
-                console.log(`جاهز للتحقق من ${count} رمز`);
-            });
-        });
-
+        document.addEventListener('DOMContentLoaded', loadCodesInBatches);
         document.getElementById('numberInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                validateForm(e);
-            }
+            if (e.key === 'Enter') validateForm(e);
         });
-    </script>
-</body>
-</html>   
+ 
