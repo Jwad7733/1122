@@ -19,6 +19,7 @@
             background-color: #f4f4f9;
             color: #333;
             line-height: 1.6;
+            padding-bottom: 80px; /* مساحة للأزرار الثابتة في الأسفل */
         }
 
         .container {
@@ -85,7 +86,7 @@
             margin: 15px 0;
         }
 
-        /* --- تنسيق الصف الذي يحتوي على كل العناصر بجانب بعضها --- */
+        /* --- تنسيق الصف الموحد --- */
         .action-row {
             display: flex;
             align-items: center;
@@ -96,7 +97,6 @@
             height: 50px;
         }
 
-        /* حاوية الإدخال وزر الكاميرا */
         .input-camera-box {
             display: flex;
             flex: 1;
@@ -105,7 +105,6 @@
             border-radius: 25px 0 0 25px; /* يسار دائري */
             overflow: hidden;
             background: white;
-            border-right: none; /* إزالة الحدود اليمنى للاتصال بالزر التالي */
         }
 
         .input-camera-box input {
@@ -127,34 +126,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-weight: bold;
         }
 
-        /* زر الكاميرا - حاد الزوايا */
+        /* تأثير الضغط على الأزرار */
+        .btn-base:active, .btn-base.pressed {
+            background-color: white !important;
+            color: #a8822b !important;
+            border: 1px solid #a8822b;
+        }
+
         .scan-btn {
             padding: 0 15px;
             border-left: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0; /* حاد الزوايا */
+            border-radius: 0; /* حاد الزوايا من اليمين */
         }
 
-        /* زر Check المنفصل بجانبه - حاد الزوايا */
         .check-btn-standalone {
             padding: 0 25px;
             font-size: 1rem;
             min-width: 100px;
-            border-radius: 0; /* حاد الزوايا */
-            margin-left: 5px; /* مسافة بسيطة للفصل بينه وبين حاوية الكاميرا */
+            border-radius: 0; /* حاد الزوايا بالكامل */
+            margin-left: 5px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .check-btn-standalone.pressed {
-            background-color: white !important;
-            color: #a8822b !important;
-            border: 2px solid #a8822b;
-        }
-
-        /* --- واجهة الكاميرا --- */
+        /* --- واجهة الكاميرا الاحترافية --- */
         #camera-expert-ui { 
             display: none; 
             width: 95%; 
@@ -169,14 +167,23 @@
             direction: rtl;
         }
         .expert-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; color: #333; display: block; text-align: center; }
-        #camera-select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; }
-        .start-scan-btn { width: 100%; padding: 12px; background-color: #a8822b; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .cam-select-label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #666; }
+        #camera-select { 
+            width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; font-size: 0.9rem; background: #f9f9f9;
+        }
+        .start-scan-btn { 
+            width: 100%; padding: 12px; background-color: #a8822b; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 15px;
+        }
+        .file-scan-option { 
+            display: block; text-align: center; color: #a8822b; text-decoration: underline; cursor: pointer; font-size: 0.9rem;
+        }
         #reader { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; display: none; }
 
         #result {
             margin: 20px auto;
             padding: 25px;
             font-size: 1.1rem;
+            max-width: 450px;
             min-height: 100px;
             display: flex;
             align-items: center;
@@ -187,20 +194,30 @@
         .success { color: #28a745; font-weight: bold; }
         .error { color: #ff0000; font-weight: bold; }
 
-        .warning-message { color: red; margin: 20px 0; padding: 15px; text-align: center; font-size: 0.9rem; border: 1px dashed red; border-radius: 10px; }
+        .warning-message {
+            color: red; margin: 20px 0; padding: 15px; text-align: center; font-size: 0.9rem; border: 1px dashed red; border-radius: 10px;
+        }
 
-        .links { display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding: 20px; background: #f9f9f9; flex-wrap: wrap; }
-        .links-section { flex: 1; min-width: 200px; margin-bottom: 20px; }
+        /* --- الحاشية السفلية الكاملة --- */
+        .links {
+            display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding: 20px; background: #f9f9f9; flex-wrap: wrap;
+        }
+        .links-section { flex: 1; min-width: 200px; margin-bottom: 20px; padding: 0 10px; }
+        .links-section h2 { text-align: left; font-size: 1.2rem; margin-bottom: 10px; color: #2c3e50; }
         .links-section a { color: #333; text-decoration: none; display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .links-section a:hover { color: #a8822b; text-decoration: underline; }
+        
+        .contact-info p { margin: 5px 0; font-size: 0.9rem; }
 
         .bottom-buttons {
-            display: flex; justify-content: space-around; padding: 8px 20px; background: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0;
+            display: flex; justify-content: space-around; align-items: center; padding: 8px 20px; background-color: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
         }
+        .bottom-buttons button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #777; padding: 5px 10px; }
         .home-icon { width: 20px; height: 20px; fill: none; stroke: #777; stroke-width: 2; }
 
-        @media (max-width: 480px) {
-            .action-row { height: 45px; }
-            .check-btn-standalone { padding: 0 15px; min-width: 80px; }
+        @media (max-width: 768px) {
+            .links { flex-direction: column; }
+            .links-section { margin-left: 0; }
         }
     </style>
 </head>
@@ -208,7 +225,9 @@
     <div class="container">
         <div class="header-content">
             <img src="https://i.postimg.cc/zvf2c47L/image.png" alt="Logo" class="logo">
-            <div class="breadcrumb">Home / Check sticker</div>
+            <div class="breadcrumb">
+                <a href="https://arabcomputers.com.sa/">Home</a> / <a href="https://arabcomputers.com.sa/check-sticker/">Check sticker</a>
+            </div>
         </div>
 
         <h2>Warranty sticker validation</h2>
@@ -229,25 +248,24 @@
             أدخل الرقم الموجود على الملصق هنا   
         </p>
 
-        <!-- الصف الموحد للعناصر -->
+        <!-- الصف الموحد -->
         <div class="action-row">
             <div class="input-camera-box">
                 <input type="text" id="numberInput" placeholder="أدخل الرقم هنا">
-                <button class="btn-base scan-btn" onclick="toggleExpertUI()" title="فتح خيارات الكاميرا">
+                <button class="btn-base scan-btn" id="cameraBtn" onclick="toggleExpertUI()" title="فتح خيارات الكاميرا">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
                 </button>
             </div>
-            <!-- زر Check بجانبه مباشرة بزوايا حادة -->
-            <button class="btn-base check-btn-standalone" onclick="validateForm(event)">Check</button>
+            <button class="btn-base check-btn-standalone" id="checkBtn" onclick="validateForm(event)">Check</button>
         </div>
 
         <!-- واجهة الكاميرا -->
         <div id="camera-expert-ui">
             <span class="expert-title">المسح الضوئي القائم على الكاميرا</span>
-            <label id="cam-count-label">اختر الكاميرا (جاري البحث...)</label>
-            <select id="camera-select"><option value="">جاري التحميل...</option></select>
-            <button class="start-scan-btn" onclick="startExpertScan()" style="margin-top:10px;">ابدأ المسح</button>
-            <span onclick="document.getElementById('file-input').click()" style="display:block; text-align:center; color:#a8822b; cursor:pointer; margin-top:10px; text-decoration:underline;">مسح ملف صورة</span>
+            <label class="cam-select-label" id="cam-count-label">اختر الكاميرا (جاري البحث...)</label>
+            <select id="camera-select"><option value="">جاري تحميل الكاميرات...</option></select>
+            <button class="start-scan-btn" onclick="startExpertScan()">ابدأ المسح</button>
+            <span class="file-scan-option" onclick="document.getElementById('file-input').click()">مسح ملف صورة ضوئيًا</span>
             <input type="file" id="file-input" accept="image/*" style="display:none" onchange="scanFile(this)">
             <div id="reader"></div>
             <button id="stop-btn" class="start-scan-btn" style="background:#dc3545; margin-top:10px; display:none;" onclick="stopScanning()">إيقاف المسح</button>
@@ -256,31 +274,47 @@
         <div id="result"></div>
 
         <div class="warning-message">
-            <strong>تنبيه:</strong> نحذر من الملصقات المزورة. الرابط الرسمي: arabcomputers.com.sa
+            <p><strong>تنبيه:</strong> نحذر من الملصقات المزورة. الرابط الرسمي: arabcomputers.com.sa</p>
         </div>
     </div>
     
     <div class="bottom-buttons">
-        <button>☰</button>
-        <button onclick="window.location.href='https://arabcomputers.com.sa/'">
+        <button class="menu-button">☰</button>
+        <button class="home-button" onclick="window.location.href='https://arabcomputers.com.sa/'">
             <svg class="home-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
         </button>
     </div>  
 
+    <!-- الحاشية السفلية الكاملة كما في الكود الثاني -->
     <div class="links">
         <div class="links-section">
             <h2>Useful Links</h2>
             <a href="https://arabcomputers.com.sa/">Home</a>
+            <a href="https://arabcomputers.com.sa/point-of-sales/">Point Of Sales</a>
             <a href="https://arabcomputers.com.sa/contact/">Contact Us</a>
         </div>
         <div class="links-section">
             <h2>Products</h2>
             <a href="https://arabcomputers.com.sa/product-category/iphone/">iPhone</a>
+            <a href="https://arabcomputers.com.sa/product-category/ipad/">iPad</a>
             <a href="https://arabcomputers.com.sa/product-category/mac/">Mac</a>
+        </div>
+        <div class="links-section">
+            <h2>Information</h2>
+            <a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Service Providers</a>
+            <a href="https://arabcomputers.com.sa/terms-and-conditions/">Terms and condition</a>
+        </div>
+        <div class="links-section">
+            <h2>Support and Sales</h2>
+            <div class="contact-info">
+                <p><strong>For Maintenance:</strong> <a href="https://ac-care.com.sa/">Visit AC-Care</a></p>
+                <p><strong>For Sales:</strong> <a href="mailto:sales@arabcomputers.com.sa">sales@arabcomputers.com.sa</a></p>
+            </div>
         </div>
     </div>
 
     <script>
+        // منطق التحقق والرموز
         const codeDatabase = {};
         function simpleHash(str) {
             let hash = 0;
@@ -288,42 +322,63 @@
                 hash = ((hash << 5) - hash) + str.charCodeAt(i);
                 hash = hash & hash;
             }
-            return hash.toString();
+            return Math.abs(hash).toString(16);
         }
 
         let html5QrCode;
         const resultDiv = document.getElementById('result');
         const cameraSelect = document.getElementById('camera-select');
+        const camCountLabel = document.getElementById('cam-count-label');
 
         async function toggleExpertUI() {
             const ui = document.getElementById('camera-expert-ui');
-            ui.style.display = ui.style.display === 'block' ? 'none' : 'block';
-            if (ui.style.display === 'block') loadCameras(); else stopScanning();
+            const btn = document.getElementById('cameraBtn');
+            btn.classList.add('pressed');
+            setTimeout(() => btn.classList.remove('pressed'), 200);
+
+            if (ui.style.display === 'block') {
+                ui.style.display = 'none';
+                stopScanning();
+            } else {
+                ui.style.display = 'block';
+                loadCameras();
+            }
         }
 
         async function loadCameras() {
             try {
                 const devices = await Html5Qrcode.getCameras();
                 cameraSelect.innerHTML = '';
-                devices.forEach((device, i) => {
-                    const opt = document.createElement('option');
-                    opt.value = device.id; opt.text = device.label || `Camera ${i}`;
-                    cameraSelect.appendChild(opt);
-                });
-            } catch (err) {}
+                if (devices && devices.length > 0) {
+                    camCountLabel.innerText = `اختر الكاميرا (${devices.length})`;
+                    devices.forEach((device, index) => {
+                        const option = document.createElement('option');
+                        option.value = device.id;
+                        option.text = device.label || `Camera ${index}`;
+                        cameraSelect.appendChild(option);
+                    });
+                } else {
+                    camCountLabel.innerText = "لم يتم العثور على كاميرات";
+                }
+            } catch (err) {
+                camCountLabel.innerText = "خطأ في الوصول للكاميرا";
+            }
         }
 
         async function startExpertScan() {
-            const cid = cameraSelect.value;
-            if (!cid) return;
+            const cameraId = cameraSelect.value;
+            if (!cameraId) return alert("يرجى اختيار كاميرا أولاً");
             document.getElementById('reader').style.display = 'block';
             document.getElementById('stop-btn').style.display = 'block';
-            html5QrCode = new Html5Qrcode("reader");
-            await html5QrCode.start(cid, { fps: 10, qrbox: 250 }, (text) => {
-                document.getElementById('numberInput').value = text;
-                stopScanning();
-                validateForm();
-            });
+            try {
+                if (html5QrCode) await html5QrCode.stop().catch(() => {});
+                html5QrCode = new Html5Qrcode("reader");
+                await html5QrCode.start(cameraId, { fps: 10, qrbox: 250 }, (text) => {
+                    document.getElementById('numberInput').value = text;
+                    stopScanning();
+                    validateForm();
+                });
+            } catch (err) { alert("تعذر بدء الكاميرا."); }
         }
 
         async function stopScanning() {
@@ -333,11 +388,12 @@
         }
 
         function scanFile(input) {
-            if (!input.files[0]) return;
-            new Html5Qrcode("reader").scanFile(input.files[0], true).then(text => {
+            if (!input.files || !input.files[0]) return;
+            const scanner = new Html5Qrcode("reader");
+            scanner.scanFile(input.files[0], true).then(text => {
                 document.getElementById('numberInput').value = text;
                 validateForm();
-            });
+            }).catch(() => alert("لم يتم العثور على كود."));
         }
 
         async function loadCodes() {
@@ -347,21 +403,22 @@
 
         function validateForm(e) {
             if (e) e.preventDefault();
+            const btn = document.getElementById('checkBtn');
             const val = document.getElementById("numberInput").value.trim().toUpperCase();
-            const res = document.getElementById("result");
-            const btn = document.querySelector('.check-btn-standalone');
             btn.classList.add('pressed');
             setTimeout(() => {
                 if (codeDatabase[simpleHash(val)]) {
-                    res.innerHTML = "<span class='success'>The code is correct ✅ هذا الرمز صحيح!</span>";
+                    resultDiv.innerHTML = "<span class='success'>The code is correct ✅ هذا الرمز صحيح!</span>";
                 } else {
-                    res.innerHTML = "<span class='error'>Code not found ❌ هذا الرمز غير موجود !</span>";
+                    resultDiv.innerHTML = "<span class='error'>Code not found ❌ هذا الرمز غير موجود !</span>";
                 }
                 btn.classList.remove('pressed');
             }, 500);
         }
 
         document.addEventListener('DOMContentLoaded', loadCodes);
+        document.getElementById('numberInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') validateForm(e); });
+ 
         </script>
 </body>
 </html>
