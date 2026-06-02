@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Warranty sticker validation</title>
+    
+    <!-- مكتبة QR Code -->
     <script src="https://unpkg.com/html5-qrcode"></script>
+
     <style>
+        /* التنسيقات الأساسية */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; padding-bottom: 80px; }
         .container { max-width: 100%; margin: 0 auto; padding: 15px; background-color: #fff; }
         .header-content { text-align: left; margin-bottom: 30px; }
         .logo { width: 100px; margin-bottom: 10px; }
         .breadcrumb { font-size: 0.9rem; color: #777; margin: 10px 0 15px 0; }
+        .breadcrumb a { color: #000 !important; text-decoration: none; }
         h2 { color: #2c3e50; font-size: 1.5rem; font-weight: 700; text-align: center; margin: 20px 0 40px 0; }
         .main-description { text-align: center; font-size: 1rem; line-height: 1.8; max-width: 800px; margin: 20px auto 30px auto; }
         
-        /* تنسيق مستطيل التحقق (يسار دائري، يمين حاد) */
+        /* تنسيق مستطيل التحقق: يسار دائري، يمين حاد */
         .input-container {
             width: 90%;
             max-width: 350px;
@@ -28,7 +33,7 @@
             height: 50px;
             background: white;
         }
-        .input-container input { flex: 1; padding: 0 15px; border: none; font-size: 1rem; outline: none; height: 100%; }
+        .input-container input { flex: 1; padding: 0 15px; border: none; font-size: 1rem; outline: none; height: 100%; text-align: left; }
         .btn-action { height: 100%; border: none; background-color: #a8822b; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .scan-btn { padding: 0 15px; border-right: 1px solid rgba(255,255,255,0.2); }
         .check-btn { padding: 0 20px; font-size: 0.9rem; min-width: 90px; font-weight: bold; }
@@ -36,38 +41,45 @@
         /* منطقة الكاميرا المتقدمة */
         #reader-wrapper { display: none; width: 100%; max-width: 400px; margin: 10px auto; position: relative; border: 2px solid #a8822b; border-radius: 15px; overflow: hidden; background: #000; }
         #reader { width: 100%; }
-        .camera-controls { padding: 10px; background: #eee; display: flex; justify-content: space-around; }
-        .cam-btn { padding: 8px 15px; border-radius: 5px; border: none; cursor: pointer; font-size: 0.8rem; }
+        .camera-controls { padding: 10px; background: #eee; display: flex; justify-content: space-around; gap: 5px; }
+        .cam-btn { padding: 10px; border-radius: 5px; border: none; cursor: pointer; font-size: 0.8rem; flex: 1; }
         
         #result { margin: 20px auto; padding: 15px; font-size: 1.1rem; font-weight: bold; min-height: 60px; }
         .success { color: #28a745; }
         .error { color: #dc3545; }
         .banner { width: 100%; max-height: 200px; object-fit: cover; margin: 20px 0; }
 
-        /* الروابط والنصوص */
-        .warning-message { color: red; margin: 20px 0; font-size: 0.9rem; padding: 10px; }
-        .links { display: flex; flex-direction: column; text-align: left; padding: 20px; background: #f9f9f9; }
-        .links-section { margin-bottom: 20px; }
-        .links-section h2 { font-size: 1.1rem; margin-bottom: 10px; }
-        .links-section a { color: #333; text-decoration: none; display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        /* رسائل التحذير */
+        .warning-message { color: red; margin: 20px 0; padding: 15px; text-align: center; font-size: 0.9rem; border: 1px dashed red; border-radius: 10px; }
+        .warning-text-bold { font-weight: bold; display: block; margin-bottom: 10px; }
+
+        /* قسم الروابط (كامل كما في ملفك الأصلي) */
+        .links { display: flex; flex-wrap: wrap; justify-content: space-between; margin-top: 40px; text-align: left; padding: 20px; background: #f9f9f9; border-top: 1px solid #eee; }
+        .links-section { flex: 1; min-width: 200px; margin-bottom: 30px; padding: 0 10px; }
+        .links-section h2 { font-size: 1.2rem; margin-bottom: 15px; color: #2c3e50; border-bottom: 2px solid #a8822b; display: inline-block; }
+        .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+        .links-section a:hover { color: #a8822b; text-decoration: underline; }
+
+        .bottom-buttons { display: flex; justify-content: space-around; padding: 15px; background: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; z-index: 1000; }
+        .home-icon { width: 24px; height: 24px; stroke: #777; stroke-width: 2; fill: none; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header-content">
             <img src="https://i.postimg.cc/zvf2c47L/image.png" alt="Logo" class="logo">
-            <div class="breadcrumb">Home / Check sticker</div>
+            <div class="breadcrumb"><a href="https://arabcomputers.com.sa/">Home</a> / Check sticker</div>
         </div>
 
         <h2>Warranty sticker validation</h2>
-        <p class="main-description">Check if the warranty sticker is genuine.<br>تأكد إذا كان ملصق الضمان أصلياً</p>
+        <p class="main-description">Check if the warranty sticker on your product is genuine.<br>تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف</p>
 
-        <!-- منطقة الكاميرا -->
+        <!-- منطقة الكاميرا المحدثة -->
         <div id="reader-wrapper">
             <div id="reader"></div>
             <div class="camera-controls">
                 <button class="cam-btn" style="background:#dc3545; color:white;" onclick="stopScanning()">إغلاق X</button>
-                <button class="cam-btn" style="background:#a8822b; color:white;" onclick="document.getElementById('file-input').click()">مسح صورة من الاستوديو 📷</button>
+                <button class="cam-btn" style="background:#a8822b; color:white;" onclick="document.getElementById('file-input').click()">📷 اختيار صورة</button>
             </div>
             <input type="file" id="file-input" accept="image/*" style="display:none" onchange="scanFile(this)">
         </div>
@@ -81,57 +93,96 @@
         </div>
 
         <div id="result"></div>
+        
         <img src="https://i.ibb.co/3m3r1TWK/Warranty-sticker-26.jpg" alt="Banner" class="banner">
 
         <div class="warning-message">
-            <strong>تنبيه هام:</strong> نحذر من وجود ملصقات مزورة. تأكد أن الرابط هو:<br>
-            <a href="https://arabcomputers.com.sa/">arabcomputers.com.sa</a>
+            <span class="warning-text-bold">نحذر عملائنا الكرام من وجود ملصق ضمان مزور يحتوي على رمز إستجابة سريع يوجه المستخدمين لصفحة إلكترونية مزورة تشبه هذه الصفحة.</span>
+            يجب أن يكون عنوان الصفحة يتبع لعنوان موقعنا الرسمي: 
+            <a href="https://arabcomputers.com.sa/" style="color:blue; font-weight:bold;">arabcomputers.com.sa/</a>
+            <br><br>
+            <span style="font-size: 0.8rem; color: #555;">
+                Important Notice: We alert you to counterfeit warranty stickers with QR codes directing to fraudulent websites.
+            </span>
         </div>
     </div>
 
+    <!-- قسم الروابط الكامل -->
     <div class="links">
         <div class="links-section">
             <h2>Useful Links</h2>
             <a href="https://arabcomputers.com.sa/">Home</a>
+            <a href="https://arabcomputers.com.sa/dpp/">DPP</a>
+            <a href="https://arabcomputers.com.sa/point-of-sales/">Point Of Sales</a>
             <a href="https://arabcomputers.com.sa/contact/">Contact Us</a>
         </div>
         <div class="links-section">
             <h2>Products</h2>
             <a href="https://arabcomputers.com.sa/product-category/iphone/">iPhone</a>
             <a href="https://arabcomputers.com.sa/product-category/ipad/">iPad</a>
+            <a href="https://arabcomputers.com.sa/product-category/mac/">Mac</a>
+            <a href="https://arabcomputers.com.sa/product-category/apple-tv/">Apple TV</a>
+            <a href="https://arabcomputers.com.sa/product-category/apple-watch/">Apple Watch</a>
         </div>
+        <div class="links-section">
+            <h2>Information</h2>
+            <a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Learn How</a>
+            <a href="https://arabcomputers.com.sa/terms-and-conditions/">Terms and condition</a>
+            <a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Service Providers</a>
+        </div>
+        <div class="links-section">
+            <h2>Support</h2>
+            <p style="font-size:0.9rem;">Maintenance: <a href="https://ac-care.com.sa/">AC-Care</a></p>
+            <p style="font-size:0.9rem;">Sales: <a href="mailto:sales@arabcomputers.com.sa">Email Us</a></p>
+        </div>
+    </div>
+
+    <div class="bottom-buttons">
+        <button>☰</button>
+        <button onclick="window.location.href='https://arabcomputers.com.sa/'">
+            <svg class="home-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </button>
     </div>
 
     <script>
         let html5QrCode;
         const resultDiv = document.getElementById('result');
 
-        // 1. بدء الكاميرا (طريقة الخبير)
+        // دالة بدء الكاميرا - نسخة الخبير النهائية
         async function startScanning() {
+            if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+                alert("الكاميرا تتطلب رابط HTTPS آمن لتعمل على الهاتف.");
+                return;
+            }
+
             const wrapper = document.getElementById('reader-wrapper');
             wrapper.style.display = 'block';
-            resultDiv.innerHTML = "جاري تشغيل الكاميرا...";
+            resultDiv.innerHTML = "جاري محاولة تشغيل الكاميرا...";
 
             try {
+                // محاولة جلب الكاميرات أولاً للتأكد من الصلاحية
+                const devices = await Html5Qrcode.getCameras();
+                if (!devices || devices.length === 0) throw new Error("No cameras found");
+
                 if (html5QrCode) await html5QrCode.stop().catch(() => {});
                 html5QrCode = new Html5Qrcode("reader");
 
+                // إعدادات المسح الأكثر توافقاً مع الهواتف
                 const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 
-                // محاولة التشغيل مع معالجة آيفون
-                await html5QrCode.start(
-                    { facingMode: "environment" }, 
-                    config,
-                    (text) => { document.getElementById('numberInput').value = text; stopScanning(); validateForm(); }
-                );
+                await html5QrCode.start({ facingMode: "environment" }, config, (text) => {
+                    document.getElementById('numberInput').value = text;
+                    stopScanning();
+                    validateForm();
+                });
                 resultDiv.innerHTML = "";
             } catch (err) {
-                console.error(err);
-                resultDiv.innerHTML = "<span class='error'>تعذر فتح الكاميرا المباشرة. يرجى استخدام زر 'مسح صورة من الاستوديو' بالأسفل.</span>";
+                console.error("Camera Error Details:", err);
+                resultDiv.innerHTML = `<span class='error'>تعذر فتح البث المباشر (خطأ: ${err.name}).<br>يرجى الضغط على زر "اختيار صورة" لتصوير الملصق أو اختيار صورة من جهازك.</span>`;
             }
         }
 
-        // 2. ميزة الخبير: مسح من ملف (تعمل 100% حتى لو الكاميرا سوداء)
+        // مسح من ملف (يعمل دائماً كحل بديل)
         function scanFile(input) {
             if (!input.files || input.files.length === 0) return;
             const file = input.files[0];
@@ -139,7 +190,7 @@
             resultDiv.innerHTML = "جاري تحليل الصورة...";
             scanner.scanFile(file, true)
                 .then(text => { document.getElementById('numberInput').value = text; stopScanning(); validateForm(); })
-                .catch(err => { resultDiv.innerHTML = "<span class='error'>لم يتم العثور على كود في الصورة. حاول التقاط صورة أوضح.</span>"; });
+                .catch(err => { resultDiv.innerHTML = "<span class='error'>لم يتم العثور على كود. تأكد من أن الصورة واضحة.</span>"; });
         }
 
         async function stopScanning() {
@@ -147,21 +198,19 @@
             document.getElementById('reader-wrapper').style.display = 'none';
         }
 
-        // 3. التحقق (قاعدة البيانات)
+        // منطق التحقق (أضف مصفوفة batches هنا)
         function validateForm() {
             const code = document.getElementById('numberInput').value.trim().toUpperCase();
             if (!code) return;
             resultDiv.innerHTML = "جاري التحقق...";
             
-            // مثال للتحقق (استبدله بمنطق batches الخاص بك)
+            // مثال للتحقق
             setTimeout(() => {
-                if (code === "TEST123") {
-                    resultDiv.innerHTML = "<span class='success'>✅ الرمز صحيح</span>";
-                } else {
-                    resultDiv.innerHTML = "<span class='error'>❌ الرمز غير موجود</span>";
-                }
-            }, 600);
+                // هنا يتم البحث في قاعدة بياناتك (codeDatabase)
+                resultDiv.innerHTML = "<span class='error'>❌ الرمز غير موجود أو لم يتم تحميل البيانات بعد.</span>";
+            }, 500);
         }
     </script>
 </body>
 </html>
+ 
