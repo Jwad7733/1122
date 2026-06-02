@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <style>
-        /* التنسيقات الأصلية من ملفك */
+        /* التنسيقات الأصلية */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; padding-bottom: 80px; }
         .container { max-width: 100%; margin: 0 auto; padding: 15px; background-color: #fff; }
@@ -21,9 +21,8 @@
         .breadcrumb { font-size: 0.9rem; color: #777; margin: 10px 0 15px 0; }
         .breadcrumb a { color: #000 !important; text-decoration: none; }
         h2 { color: #2c3e50; font-size: 1.5rem; font-weight: 700; text-align: center; margin: 20px 0 40px 0; }
-        .main-description { text-align: center; font-size: 1rem; line-height: 1.8; max-width: 800px; margin: 20px auto 30px auto; }
         
-        /* تنسيق مربع الإدخال مع زر الكاميرا الموحد */
+        /* تنسيق مربع الإدخال مع زر الكاميرا */
         .input-group {
             display: flex;
             justify-content: center;
@@ -53,7 +52,6 @@
             outline: none;
         }
 
-        /* زر الكاميرا وزر التحقق بنفس اللون الذهبي */
         .action-btn {
             background-color: #a8822b;
             color: white;
@@ -80,7 +78,6 @@
             overflow: hidden;
         }
 
-        /* الروابط والتنسيقات الأخرى */
         #result { margin: 20px 0; min-height: 40px; font-weight: bold; }
         .success { color: #28a745; }
         .error { color: #dc3545; }
@@ -100,20 +97,17 @@
         </div>
 
         <h2>Warranty sticker validation</h2>
-        <p class="main-description">Check if the warranty sticker on your product is genuine.<br>تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف</p>
+        <p>Check if the warranty sticker on your product is genuine.<br>تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف</p>
 
-        <!-- نافذة الكاميرا -->
         <div id="reader"></div>
 
         <div class="input-group">
             <div class="input-container">
                 <input type="text" id="numberInput" placeholder="Enter code here...">
             </div>
-            <!-- زر الكاميرا الذهبي -->
-            <button class="action-btn scan-btn" onclick="toggleScanner()" title="Scan QR">
+            <button class="action-btn scan-btn" onclick="startScanning()" id="scanButton">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
             </button>
-            <!-- زر التحقق الذهبي -->
             <button class="action-btn check-btn" id="checkBtn" onclick="validateForm()">Check</button>
         </div>
 
@@ -141,40 +135,31 @@
         const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let html5QrCode;
-        let isScanning = false;
 
-        async function toggleScanner() {
-            if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
-                alert("Camera requires HTTPS to work. Please check your website security.");
-                return;
-            }
-
+        async function startScanning() {
             const readerDiv = document.getElementById('reader');
-            if (!isScanning) {
-                readerDiv.style.display = 'block';
+            readerDiv.style.display = 'block';
+
+            if (!html5QrCode) {
                 html5QrCode = new Html5Qrcode("reader");
-                try {
-                    await html5QrCode.start(
-                        { facingMode: "environment" }, 
-                        { fps: 10, qrbox: 250 },
-                        (decodedText) => {
-                            document.getElementById('numberInput').value = decodedText;
-                            toggleScanner(); 
-                            validateForm();  
-                        }
-                    );
-                    isScanning = true;
-                } catch (err) {
-                    alert("Camera error: Please ensure you allowed camera access.");
-                    readerDiv.style.display = 'none';
-                }
-            } else {
-                if (html5QrCode) {
-                    await html5QrCode.stop();
-                    readerDiv.style.display = 'none';
-                    isScanning = false;
-                }
             }
+
+            const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+                document.getElementById('numberInput').value = decodedText;
+                html5QrCode.stop().then(() => {
+                    readerDiv.style.display = 'none';
+                    validateForm();
+                });
+            };
+
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+            html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback)
+                .catch((err) => {
+                    console.error("Camera start error:", err);
+                    alert("Please allow camera access and ensure you are using HTTPS.");
+                    readerDiv.style.display = 'none';
+                });
         }
 
         async function validateForm() {
@@ -197,3 +182,4 @@
     </script>
 </body>
 </html>
+ 
