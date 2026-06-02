@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warranty sticker validation</title>
     
+    <!-- المكتبات المطلوبة -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <style>
+        /* التنسيقات الأصلية */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; padding-bottom: 80px; }
         .container { max-width: 100%; margin: 0 auto; padding: 15px; background-color: #fff; }
@@ -21,14 +23,14 @@
         h2 { color: #2c3e50; font-size: 1.5rem; font-weight: 700; text-align: center; margin: 20px 0 40px 0; }
         .main-description { text-align: center; font-size: 1rem; line-height: 1.8; max-width: 800px; margin: 20px auto 30px auto; }
         
-        /* التعديل المطلوب: حواف دائرية من اليمين وحادة من اليسار */
+        /* التعديل المطلوب: حواف دائرية من اليسار وحادة من اليمين */
         .input-container {
             width: 45%;
             max-width: 350px;
             display: flex;
             align-items: center;
             border: 2px solid #cccccc;
-            border-radius: 0 25px 25px 0; /* يسار حاد، يمين دائري */
+            border-radius: 25px 0 0 25px; /* يسار دائري، يمين حاد */
             overflow: hidden;
             margin: 10px auto;
             height: 45px;
@@ -44,6 +46,7 @@
             text-align: left;
         }
 
+        /* زر الكاميرا وزر التحقق داخل المستطيل */
         .btn-action {
             height: 100%;
             border: none;
@@ -69,12 +72,15 @@
 
         .btn-action:hover { opacity: 0.9; }
 
+        /* نافذة الكاميرا */
         #reader { width: 100%; max-width: 400px; margin: 10px auto; display: none; border: 2px solid #a8822b; border-radius: 10px; overflow: hidden; }
+
         #result { margin: 20px 0; min-height: 40px; font-weight: bold; }
         .success { color: #28a745; }
         .error { color: #dc3545; }
         .banner { width: 100%; max-height: 200px; object-fit: cover; margin: 20px 0; }
         
+        /* الروابط الذكية (كاملة كما في ملفك الأول) */
         .links { display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding-left: 40px; }
         .links-section { flex: 1; margin-left: 15px; text-align: left; }
         .links-section h2 { font-size: 1.2rem; margin-bottom: 8px; color: #2c3e50; }
@@ -108,6 +114,7 @@
         <img src="https://i.ibb.co/3m3r1TWK/Warranty-sticker-26.jpg" alt="Banner" class="banner">
     </div>
 
+    <!-- الروابط الذكية -->
     <div class="links">
         <div class="links-section">
             <h2>Useful Links</h2>
@@ -118,6 +125,11 @@
             <h2>Products</h2>
             <a href="https://arabcomputers.com.sa/product-category/iphone/">iPhone</a>
             <a href="https://arabcomputers.com.sa/product-category/ipad/">iPad</a>
+        </div>
+        <div class="links-section">
+            <h2>Information</h2>
+            <a href="https://arabcomputers.com.sa/about-us/">About Us</a>
+            <a href="https://arabcomputers.com.sa/terms-and-conditions/">Terms</a>
         </div>
     </div>
 
