@@ -12,18 +12,20 @@
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; padding-bottom: 80px; }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; line-height: 1.6; }
         .container { max-width: 100%; margin: 0 auto; padding: 15px; background-color: #fff; }
         .header-content { text-align: left; margin-bottom: 30px; }
         .logo { width: 100px; margin-bottom: 10px; }
         .breadcrumb { font-size: 0.9rem; color: #777; margin: 10px 0 15px 0; }
         .breadcrumb a { color: #000 !important; text-decoration: none; }
-        h2 { color: #2c3e50; font-size: 1.5rem; font-weight: 700; text-align: center; margin: 20px 0 40px 0; }
+        .breadcrumb a:hover { color: #333 !important; text-decoration: underline; }
+        h2 { color: #2c3e50; font-size: 1.5rem; font-weight: 700; text-align: center; margin: 20px 0 40px 0; letter-spacing: 1px; }
         .main-description { text-align: center; font-size: 1rem; line-height: 1.8; max-width: 800px; margin: 20px auto 30px auto; }
+        .arabic-text { font-family: 'Traditional Arabic', 'Arial Arabic', 'Simplified Arabic', sans-serif; font-size: 1rem; direction: rtl; display: inline-block; }
         
-        /* تنسيق مستطيل التحقق */
+        /* التعديل المطلوب: مستطيل التحقق مع زر الكاميرا */
         .input-container {
-            width: 85%; /* مناسب للهاتف */
+            width: 45%;
             max-width: 350px;
             display: flex;
             align-items: center;
@@ -54,7 +56,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
         }
 
         .scan-btn {
@@ -69,61 +71,60 @@
         }
 
         .btn-action:hover { opacity: 0.9; }
+        .btn-action.pressed { background-color: white !important; color: #a8822b !important; }
 
         /* نافذة الكاميرا */
-        #reader-container { 
-            display: none; 
-            width: 100%; 
-            max-width: 400px; 
-            margin: 10px auto; 
-            position: relative;
-        }
-        #reader { 
-            width: 100%; 
-            border: 2px solid #a8822b; 
-            border-radius: 10px; 
-            overflow: hidden; 
-        }
-        .close-scan {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 10;
-        }
+        #reader-container { display: none; width: 100%; max-width: 400px; margin: 10px auto; position: relative; }
+        #reader { width: 100%; border: 2px solid #a8822b; border-radius: 10px; overflow: hidden; }
+        .close-scan { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; z-index: 10; }
 
-        #result { margin: 20px auto; padding: 10px; font-size: 1.1rem; min-height: 50px; }
+        #result { margin: 20px auto; padding: 25px; font-size: 1.1rem; max-width: 450px; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; }
         .success { color: #28a745; font-weight: bold; }
         .error { color: #ff0000; font-weight: bold; }
-        .banner { width: 100%; max-height: 200px; object-fit: cover; margin: 20px 0; }
         
-        /* التنسيقات السفلية */
-        .links { display: flex; flex-direction: column; text-align: left; padding: 20px; }
-        .links-section { margin-bottom: 20px; }
-        .links-section h2 { font-size: 1.2rem; margin-bottom: 10px; text-align: left; }
-        .links-section a { color: #333; text-decoration: none; display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .banner { width: 100%; max-height: 200px; object-fit: cover; margin: 40px 0; }
+        .input-instruction { text-align: center; font-size: 0.9rem; margin: 15px 0; }
+
+        /* باقي التنسيقات كما هي في ملفك */
+        .warning-message { color: red; margin: 20px 0; text-align: center; font-size: 0.9rem; }
+        .warning-text-bold { font-weight: bold; line-height: 1.4; }
+        .warning-text-normal { font-weight: normal; margin-top: 10px; line-height: 1.4; }
+        .warning-url { text-decoration: underline; font-weight: bold; color: #000000; display: block; margin: 5px 0; }
         
-        .bottom-buttons { display: flex; justify-content: space-around; padding: 10px; background: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; width: 100%; }
+        .bottom-buttons { display: flex; justify-content: space-around; align-items: center; padding: 8px 20px; background-color: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; }
+        .bottom-buttons button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #777; padding: 5px 10px; }
+        .home-icon { width: 20px; height: 20px; fill: none; stroke: #777; stroke-width: 2; }
+
+        .links { display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding-left: 40px; padding-bottom: 80px; }
+        .links-section { flex: 1; margin-left: 15px; }
+        .links-section h2 { text-align: left; font-size: 1.2rem; margin: 0 0 8px 0; color: #2c3e50; }
+        .links-grid { display: flex; flex-direction: column; gap: 2px; }
+        .link-row { display: flex; justify-content: space-between; align-items: center; }
+        .link-left, .link-right { flex: 1; text-align: left; }
+        .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; }
+        .links-section a:hover { color: #a8822b; text-decoration: underline; }
+
+        @media (max-width: 768px) { .input-container { width: 85%; } .links { flex-direction: column; padding-left: 20px; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header-content">
             <img src="https://i.postimg.cc/zvf2c47L/image.png" alt="Logo" class="logo">
-            <div class="breadcrumb"><a href="https://arabcomputers.com.sa/">Home</a> / Check sticker</div>
+            <div class="breadcrumb"><a href="https://arabcomputers.com.sa/">Home</a> / <a href="https://arabcomputers.com.sa/check-sticker/">Check sticker</a></div>
         </div>
 
         <h2>Warranty sticker validation</h2>
         <p class="main-description">Check if the warranty sticker on your product is genuine.<br>تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف</p>
 
+        <img src="https://i.postimg.cc/1XhL17mC/Screenshot-20251026-022901.jpg" alt="Banner" class="banner">
+        <img src="https://i.ibb.co/3m3r1TWK/Warranty-sticker-26.jpg" alt="Banner" class="banner">
+        
+        <p class="input-instruction">Enter the number shown on the sticker in this box<br>أدخل الرقم الموجود على الملصق هنا</p>
+
         <!-- حاوية الكاميرا -->
         <div id="reader-container">
-            <button class="close-scan" onclick="stopScanning()">X إغلاق</button>
+            <button class="close-scan" onclick="stopScanning()">إغلاق X</button>
             <div id="reader"></div>
         </div>
 
@@ -132,28 +133,67 @@
             <button class="btn-action scan-btn" onclick="startScanning()" title="Scan QR">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
             </button>
-            <button class="btn-action check-btn" onclick="validateForm()">Check</button>
+            <button class="btn-action check-btn" id="checkBtn" onclick="validateForm(event)">Check</button>
         </div>
 
         <div id="result"></div>
-        
-        <img src="https://i.ibb.co/3m3r1TWK/Warranty-sticker-26.jpg" alt="Banner" class="banner">
+
+        <div class="warning-message">
+            <p class="warning-text-bold">نحذر عملائنا الكرام من وجود ملصق ضمان مزور...<br>يجب أن يكون عنوان الصفحة يتبع لعنوان موقعنا الرسمي: <a href="https://arabcomputers.com.sa/">arabcomputers.com.sa/</a></p>
+        </div>
+    </div>
+
+    <div class="bottom-buttons">
+        <button>☰</button>
+        <button onclick="window.location.href='https://arabcomputers.com.sa/'">
+            <svg class="home-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
     </div>
 
     <script>
-        let html5QrCode;
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(16);
+        }
 
+        const codeDatabase = {};
+
+        // منطق تحميل الرموز (Batches)
+        async function loadCodesInBatches() {
+            // ملاحظة: تأكد من تعريف مصفوفة batches هنا
+            if (typeof batches === 'undefined') return 0;
+            let totalLoaded = 0;
+            for (let i = 0; i < batches.length; i++) {
+                const batch = batches[i];
+                for (const code of batch) {
+                    const hash = simpleHash(code);
+                    codeDatabase[hash] = true;
+                    totalLoaded++;
+                }
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+            return totalLoaded;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCodesInBatches().then(count => console.log(`Loaded ${count} codes`));
+        });
+
+        // منطق الكاميرا المحسن
+        let html5QrCode;
         async function startScanning() {
             const container = document.getElementById('reader-container');
             container.style.display = 'block';
-
             try {
-                if (html5QrCode) { await html5QrCode.stop().catch(() => {}); }
+                if (html5QrCode) await html5QrCode.stop().catch(() => {});
                 html5QrCode = new Html5Qrcode("reader");
-                
                 await html5QrCode.start(
                     { facingMode: "environment" }, 
-                    { fps: 10, qrbox: { width: 250, height: 250 } },
+                    { fps: 10, qrbox: 250 },
                     (decodedText) => {
                         document.getElementById('numberInput').value = decodedText;
                         stopScanning();
@@ -161,12 +201,7 @@
                     }
                 );
             } catch (err) {
-                console.error(err);
-                if (location.protocol !== 'https:') {
-                    alert("الكاميرا تعمل فقط على الروابط الآمنة HTTPS. يرجى التأكد من الرابط.");
-                } else {
-                    alert("خطأ في الوصول للكاميرا. تأكد من إعطاء الصلاحية للمتصفح.");
-                }
+                alert("تأكد من استخدام HTTPS ومنح صلاحية الكاميرا.");
                 container.style.display = 'none';
             }
         }
@@ -178,23 +213,42 @@
             }
         }
 
-        function validateForm() {
+        // دالة التحقق
+        function validateForm(event) {
+            if(event) event.preventDefault();
+            const btn = document.getElementById("checkBtn");
             const input = document.getElementById("numberInput").value.trim().toUpperCase();
             const result = document.getElementById("result");
             if(!input) return;
-            
-            result.innerHTML = "جاري التحقق...";
-            // ملاحظة: هنا يجب أن تضع كود قاعدة البيانات (batches) الذي كان لديك سابقاً
-            // سأضع لك مثالاً بسيطاً للتحقق
+
+            btn.classList.add('pressed');
+            result.className = '';
+            result.textContent = 'Checking...';
+
+            const usedCodes = JSON.parse(localStorage.getItem("usedCodes")) || [];
+
             setTimeout(() => {
-                // مثال: الرمز "123456" سيعتبر صحيحاً للتجربة
-                if (input === "123456") {
-                    result.innerHTML = "<span class='success'>The code is correct ✅ الرمز صحيح</span>";
+                const inputHash = simpleHash(input);
+                if (usedCodes.includes(input)) {
+                    result.textContent = "code is already used❌ تم استخدام هذا الرمز !";
+                    result.className = 'error';
+                } else if (codeDatabase[inputHash]) {
+                    usedCodes.push(input);
+                    localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
+                    result.textContent = "The code is correct ✅ هذا الرمز صحيح";
+                    result.className = 'success';
                 } else {
-                    result.innerHTML = "<span class='error'>Code not found ❌ الرمز غير موجود</span>";
+                    result.textContent = "Code not found ❌ هذا الرمز غير موجود !";
+                    result.className = 'error';
                 }
+                btn.classList.remove('pressed');
             }, 500);
         }
+
+        document.getElementById('numberInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') validateForm(e);
+        });
     </script>
 </body>
 </html>
+ 
