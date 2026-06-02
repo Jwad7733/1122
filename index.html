@@ -21,6 +21,7 @@
         .breadcrumb a:hover { color: #333 !important; text-decoration: underline; }
         h2 { color: #2c3e50; font-size: 1.5rem; font-weight: 700; text-align: center; margin: 20px 0 40px 0; letter-spacing: 1px; }
         .main-description { text-align: center; font-size: 1rem; line-height: 1.8; max-width: 800px; margin: 20px auto 30px auto; }
+        .arabic-text { font-family: 'Traditional Arabic', 'Arial Arabic', 'Simplified Arabic', sans-serif; font-size: 1rem; direction: rtl; display: inline-block; }
         
         /* تنسيق مستطيل التحقق المطلوب */
         .input-container {
@@ -65,7 +66,7 @@
 
         /* نافذة الكاميرا */
         #reader-container { display: none; width: 100%; max-width: 400px; margin: 10px auto; position: relative; }
-        #reader { width: 100%; border: 2px solid #a8822b; border-radius: 10px; overflow: hidden; }
+        #reader { width: 100%; border: 2px solid #a8822b; border-radius: 10px; overflow: hidden; background: #000; }
         .close-scan { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; z-index: 10; }
 
         #result { margin: 20px auto; padding: 25px; font-size: 1.1rem; max-width: 450px; min-height: 100px; display: flex; align-items: center; justify-content: center; text-align: center; }
@@ -115,7 +116,6 @@
         
         <p class="input-instruction">Enter the number shown on the sticker in this box<br>أدخل الرقم الموجود على الملصق هنا</p>
 
-        <!-- حاوية الكاميرا -->
         <div id="reader-container">
             <button class="close-scan" onclick="stopScanning()">إغلاق X</button>
             <div id="reader"></div>
@@ -213,56 +213,53 @@
             loadCodesInBatches().then(count => console.log(`Loaded ${count} codes`));
         });
 
-        // منطق الكاميرا المطور للهواتف
+        // منطق الكاميرا المطور لحل مشكلة الشاشة السوداء
         let html5QrCode;
         async function startScanning() {
             const container = document.getElementById('reader-container');
             container.style.display = 'block';
 
             try {
-                if (html5QrCode && html5QrCode.isScanning) {
-                    await html5QrCode.stop();
-                }
+                // 1. جلب الكاميرات المتاحة
+                const devices = await Html5Qrcode.getCameras();
                 
-                html5QrCode = new Html5Qrcode("reader");
-
-                const config = { 
-                    fps: 10, 
-                    qrbox: (viewfinderWidth, viewfinderHeight) => {
-                        const minEdge = Math.min(viewfinderWidth, viewfinderHeight);
-                        const qrboxSize = Math.floor(minEdge * 0.7);
-                        return { width: qrboxSize, height: qrboxSize };
-                    },
-                    aspectRatio: 1.0
-                };
-
-                // تأخير بسيط لضمان ظهور العنصر في الصفحة قبل بدء البث
-                setTimeout(async () => {
-                    try {
-                        await html5QrCode.start(
-                            { facingMode: "environment" }, 
-                            config,
-                            (decodedText) => {
-                                document.getElementById('numberInput').value = decodedText;
-                                stopScanning();
-                                validateForm();
-                            }
-                        );
-                    } catch (startErr) {
-                        handleCameraError(startErr);
+                if (devices && devices.length > 0) {
+                    // 2. محاولة العثور على الكاميرا الخلفية
+                    let cameraId = devices[0].id;
+                    for (const device of devices) {
+                        if (device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear')) {
+                            cameraId = device.id;
+                            break;
+                        }
                     }
-                }, 300);
 
+                    if (html5QrCode) {
+                        await html5QrCode.stop().catch(() => {});
+                    }
+
+                    html5QrCode = new Html5Qrcode("reader");
+
+                    // 3. البدء
+                    await html5QrCode.start(
+                        cameraId, 
+                        {
+                            fps: 10,
+                            qrbox: { width: 250, height: 250 }
+                        },
+                        (decodedText) => {
+                            document.getElementById('numberInput').value = decodedText;
+                            stopScanning();
+                            validateForm();
+                        }
+                    );
+                } else {
+                    alert("لم يتم العثور على كاميرا.");
+                }
             } catch (err) {
-                handleCameraError(err);
+                console.error(err);
+                alert("يرجى منح صلاحية الكاميرا والتأكد من فتح الموقع عبر HTTPS.");
+                container.style.display = 'none';
             }
-        }
-
-        function handleCameraError(err) {
-            console.error(err);
-            let msg = "يرجى استخدام HTTPS ومنح صلاحية الكاميرا من إعدادات المتصفح والهاتف.";
-            alert(msg);
-            document.getElementById('reader-container').style.display = 'none';
         }
 
         async function stopScanning() {
@@ -311,3 +308,4 @@
     </script>
 </body>
 </html>
+ 
