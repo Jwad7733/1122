@@ -122,15 +122,15 @@
             margin: 15px 0;
         }
 
-        /* --- تنسيق خبير: الصف الموحد للأزرار --- */
+        /* --- تصغير وتوسيط مربع التحقق والأزرار مع الحفاظ على التنسيق --- */
         .action-row {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 95%;
-            max-width: 500px;
-            margin: 20px auto;
-            height: 50px;
+            width: 90%;
+            max-width: 350px; /* تم تصغير العرض من 500 إلى 350 */
+            margin: 20px auto; /* هذا السطر يضمن التوسيط */
+            height: 40px;      /* تم تصغير الارتفاع من 50 إلى 40 */
         }
 
         .input-camera-box {
@@ -138,16 +138,16 @@
             flex: 1;
             height: 100%;
             border: 2px solid #cccccc;
-            border-radius: 25px 0 0 25px; /* يسار دائري */
+            border-radius: 20px 0 0 20px; /* تقليل الانحناء ليناسب الارتفاع الجديد */
             overflow: hidden;
             background: white;
         }
 
         .input-camera-box input {
             flex: 1;
-            padding: 0 15px;
+            padding: 0 10px;
             border: none;
-            font-size: 1rem;
+            font-size: 0.9rem; /* تصغير الخط قليلاً */
             outline: none;
             height: 100%;
             text-align: left;
@@ -166,7 +166,6 @@
             font-weight: bold;
         }
 
-        /* تأثير الضغط الاحترافي */
         .btn-expert:active, .btn-expert.pressed {
             background-color: white !important;
             color: #a8822b !important;
@@ -174,34 +173,20 @@
         }
 
         .scan-btn {
-            padding: 0 15px;
+            padding: 0 10px;
             border-left: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0; /* حاد من اليمين */
+            border-radius: 0;
         }
 
         .check-btn-final {
-            padding: 0 25px;
-            font-size: 1rem;
-            min-width: 100px;
-            border-radius: 0; /* حاد بالكامل */
-            margin-left: 5px;
+            padding: 0 15px;
+            font-size: 0.9rem; /* تصغير الخط */
+            min-width: 80px;   /* تصغير عرض الزر */
+            border-radius: 0; 
+            margin-left: 5px;  /* الحفاظ على الفراغ كما هو في كودك الأصلي */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* --- واجهة الكاميرا الاحترافية --- */
-        #camera-expert-ui { 
-            display: none; 
-            width: 95%; 
-            max-width: 400px; 
-            margin: 20px auto; 
-            padding: 20px; 
-            border: 1px solid #ddd; 
-            border-radius: 10px; 
-            background: #fff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right; 
-            direction: rtl;
-        }
         .expert-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; color: #333; display: block; text-align: center; }
         .cam-select-label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #666; }
         #camera-select { 
@@ -420,13 +405,7 @@
         }
 
         async function loadCodes() {
-            const codes = ["U72S7HDZ719","1TEHZ9945D9",
-"2RVSX23KEV",
-"0RKIX83FZH",
-"4C03X26K6Q",
-"7KKLXZ8ULV",
-"1HSIX78G2K",
-"1H3EXR1ZZ8",
+            const codes = "U72S7HDZ719","1TEHZ9945D9","1H3EXR1ZZ8",
 "7YTAXQ9G66",
 "9IL9XD8ZBS",
 "0W7XX00LQG",
