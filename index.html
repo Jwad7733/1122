@@ -30,7 +30,7 @@
             display: flex;
             align-items: center;
             border: 2px solid #cccccc;
-            border-radius: 25px 0 0 25px; /* يسار دائري، يمين حاد */
+            border-radius: 25px 0 0 25px;
             overflow: hidden;
             margin: 10px auto;
             height: 45px;
@@ -59,17 +59,8 @@
             transition: all 0.3s ease;
         }
 
-        .scan-btn {
-            padding: 0 12px;
-            border-right: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .check-btn {
-            padding: 0 20px;
-            font-size: 0.9rem;
-            min-width: 80px;
-        }
-
+        .scan-btn { padding: 0 12px; border-right: 1px solid rgba(255,255,255,0.2); }
+        .check-btn { padding: 0 20px; font-size: 0.9rem; min-width: 80px; }
         .btn-action:hover { opacity: 0.9; }
         .btn-action.pressed { background-color: white !important; color: #a8822b !important; }
 
@@ -85,11 +76,14 @@
         .banner { width: 100%; max-height: 200px; object-fit: cover; margin: 40px 0; }
         .input-instruction { text-align: center; font-size: 0.9rem; margin: 15px 0; }
 
-        .warning-message { color: red; margin: 20px 0; text-align: center; font-size: 0.9rem; }
-        .warning-text-bold { font-weight: bold; line-height: 1.4; }
+        /* تنسيق رسالة التحذير */
+        .warning-message { color: red; margin: 20px 0; padding: 0; text-align: center; font-size: 0.9rem; }
+        .warning-text-bold { font-weight: bold; margin-bottom: 0; line-height: 1.4; }
+        .warning-text-normal { font-weight: normal; margin-top: 10px; line-height: 1.4; }
+        .notice-title { font-weight: bold; display: block; }
         .warning-url { text-decoration: underline; font-weight: bold; color: #000000; display: block; margin: 5px 0; }
         
-        /* تنسيق الروابط المفيدة (كما في ملفك الأصلي) */
+        /* تنسيق الروابط */
         .links { display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding-left: 40px; padding-bottom: 100px; }
         .links-section { flex: 1; margin-left: 15px; text-align: left; }
         .links-section h2 { text-align: left; font-size: 1.2rem; margin: 0 0 8px 0; color: #2c3e50; }
@@ -99,13 +93,12 @@
         .link-right { text-align: left; flex: 1; padding-left: 5px; margin-left: -40px; }
         .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; }
         .links-section a:hover { color: #a8822b; text-decoration: underline; }
-        .contact-info p { margin: 2px 0; line-height: 1.2; font-size: 0.9rem; }
 
         .bottom-buttons { display: flex; justify-content: space-around; align-items: center; padding: 8px 20px; background-color: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; }
         .bottom-buttons button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #777; padding: 5px 10px; }
         .home-icon { width: 20px; height: 20px; fill: none; stroke: #777; stroke-width: 2; }
 
-        @media (max-width: 768px) { .input-container { width: 85%; } .links { flex-direction: column; padding-left: 20px; } .link-right { margin-left: 0; text-align: left; } }
+        @media (max-width: 768px) { .input-container { width: 85%; } .links { flex-direction: column; padding-left: 20px; } .link-right { margin-left: 0; } }
     </style>
 </head>
 <body>
@@ -139,12 +132,31 @@
         <div id="result"></div>
 
         <div class="warning-message">
-            <p class="warning-text-bold">نحذر عملائنا الكرام من وجود ملصق ضمان مزور...<br>يجب أن يكون عنوان الصفحة يتبع لعنوان موقعنا الرسمي: <a href="https://arabcomputers.com.sa/" style="color: #000000; text-decoration: none;">arabcomputers.com.sa/</a></p>
+            <p class="warning-text-bold">
+                نحذر عملائنا الكرام من وجود ملصق ضمان مزور يحتوي على رمز إستجابة سريع يوجه المستخدمين لصفحة إلكترونية مزورة تشبه هذه الصفحة.<br>
+                يجب أن يكون عنوان الصفحة يتبع لعنوان موقعنا الرسمي:
+                <span class="warning-url"><a href="https://arabcomputers.com.sa/" style="color: #000000; text-decoration: none;">arabcomputers.com.sa/</a></span>
+            </p>
+            <p class="warning-text-normal">
+                <span class="notice-title">Important Notice to Our Valued Customers:</span>
+                We would like to alert you to the presence of counterfeit warranty stickers featuring a QR code that directs users to a fraudulent website designed to imitate the official Arab Computers website.<br>
+            </p>
         </div>
     </div>
 
-    <!-- قسم الروابط المفيدة كاملاً -->
+    <div class="bottom-buttons">
+        <button>☰</button>
+        <button onclick="window.location.href='https://arabcomputers.com.sa/'">
+            <svg class="home-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+    </div>
+
     <div class="links">
+        <!-- الشعار الذي كان مفقوداً أسفل التحذير -->
+        <div class="links-section">
+            <img src="https://i.postimg.cc/SKC7Wqhm/Screenshot-com-android-chrome.png" alt="بانر الموقع" class="banner" style="margin-top: 0; margin-bottom: 20px;">
+        </div>
+
         <div class="links-section">
             <h2>Useful Links</h2>
             <div class="links-grid">
@@ -168,21 +180,6 @@
                 <div class="link-row"><div class="link-left"><a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Service Providers</a></div></div>
             </div>
         </div>
-        <div class="links-section">
-            <h2>Support and Sales</h2>
-            <div class="contact-info">
-                <p><strong>For Maintenance:</strong> <a href="https://ac-care.com.sa/">Visit AC-Care</a></p>
-                <p><strong>For Individual Sales:</strong> <a href="https://arabcomputers.com.sa/point-of-sales/">Point of Sales</a></p>
-                <p><strong>For corporate:</strong> <a href="mailto:sales@arabcomputers.com.sa">Email Sales</a></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-buttons">
-        <button>☰</button>
-        <button onclick="window.location.href='https://arabcomputers.com.sa/'">
-            <svg class="home-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-        </button>
     </div>
 
     <script>
@@ -196,9 +193,6 @@
         }
 
         const codeDatabase = {};
-
-        // يجب تعريف مصفوفة batches هنا لتعمل قاعدة البيانات
-        // const batches = [ ["CODE1", "CODE2"], ["CODE3"] ]; 
 
         async function loadCodesInBatches() {
             if (typeof batches === 'undefined') return 0;
