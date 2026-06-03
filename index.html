@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+<meta name="google-adsense-account" content="ca-pub-9178907045493989">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9178907045493989"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warranty sticker validation</title>
-   <script src="https://unpkg.com/html5-qrcode"></script>
-     <style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -125,85 +127,45 @@
             margin: 15px 0;
         }
 
-        .action-row {
+        .input-container {
+            width: 45%;
+            max-width: 300px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 90%;
-            max-width: 380px;
-            margin: 20px auto;
-            height: 48px;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .input-box-wrapper {
-            display: flex;
-            flex: 1;
-            height: 100%;
-            border: 1px solid #e0e0e0;
-            border-right: none;
+            border: 2px solid #cccccc;
             border-radius: 25px 0 0 25px;
             overflow: hidden;
-            background: white;
+            margin: 10px auto;
+            height: 40px;
         }
 
-        .input-box-wrapper input {
+        .input-container input {
             flex: 1;
-            padding: 0 15px;
+            padding: 8px 12px;
             border: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             outline: none;
-            height: 100%;
+            border-radius: 25px 0 0 25px;
             text-align: left;
+            height: 100%;
         }
 
-                 .btn-check {
+        .input-container button {
+            padding: 0 20px;
             background-color: #a8822b;
-            padding: 0 25px;
-            border-radius: 0 /* تم جعل جميع الزوايا حادة */
-            margin-left: 2px;
+            color: white;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100%;
+            border-radius: 0;
+            min-width: 80px;
         }
 
-        #result {
-            margin: 20px auto;
-            padding: 25px;
-            font-size: 1.1rem;
-            max-width: 450px;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .success { color: #28a745; font-weight: bold; }
-        .error { color: #ff0000; font-weight: bold; }
-
-        /* --- الحاشية السفلية الأصلية --- */
-        .links {
-            display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding-left: 40px; flex-wrap: wrap;
-        }
-        .links-section { flex: 1; margin-left: 15px; text-align: left; min-width: 200px; margin-bottom: 20px; }
-        .links-section h2 { text-align: left; font-size: 1.2rem; margin: 0 0 8px 0; color: #2c3e50; }
-        .links-grid { display: flex; flex-direction: column; gap: 2px; }
-        .link-row { display: flex; justify-content: space-between; align-items: center; min-height: 18px; }
-        .link-left { text-align: left; flex: 1; }
-        .link-right { text-align: left; flex: 1; padding-left: 5px; margin-left: -40px; }
-        .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; }
-        .links-section a:hover { color: #a8822b; text-decoration: underline; }
-
-        .bottom-buttons {
-            display: flex; justify-content: space-around; align-items: center; padding: 8px 20px; background-color: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
-        }
-        .bottom-buttons button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #777; padding: 5px 10px; }
-        .home-icon { width: 20px; height: 20px; fill: none; stroke: #777; stroke-width: 2; }
-
-        @media (max-width: 768px) {
-            .links { flex-direction: column; padding-left: 20px; }
-            .links-section { margin-left: 0; }
-            .link-right { margin-left: 0; text-align: center; }
+        .input-container button.pressed {
+            background-color: white !important;
+            color: #a8822b !important;
         }
 
         #result {
@@ -418,24 +380,12 @@
         </p>
 
 
-                <div class="action-row">
-            <div class="input-box-wrapper">
-                <input type="text" id="numberInput" placeholder="أدخل الرقم هنا">
-                <button class="btn-camera" id="camBtn" onclick="toggleExpertUI()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
-                </button>
-            </div>
-            <button class="btn-check" id="chkBtn" onclick="validateForm(event)">Check</button>
+        <div class="input-container">
+            <input type="text" id="numberInput" placeholder="XXXXXX">
+            <button type="submit" onclick="validateForm(event)">Check</button>
+       
+            <button type="submit" onclick="validateForm(event)">Check</button>
         </div>
-
-        <div id="camera-expert-ui">
-            <label>اختر الكاميرا:</label>
-            <select id="camera-select" style="width:100%; padding:8px; margin:10px 0;"></select>
-            <button onclick="startExpertScan()" style="width:100%; padding:10px; background:#a8822b; color:white; border:none; border-radius:8px; cursor:pointer;">ابدأ المسح</button>
-            <div id="reader"></div>
-            <button id="stop-btn" onclick="stopScanning()">إيقاف المسح</button>
-        </div>
-
 
         <!-- The result div is now here, right after the input container -->
         <div id="result"></div>
@@ -548,38 +498,6 @@
                 hash = hash & hash; // تحويل إلى عدد صحيح 32 بت
             }
             return Math.abs(hash).toString(16);
-        }
-        let html5QrCode;
-        async function toggleExpertUI() {
-            const ui = document.getElementById('camera-expert-ui');
-            ui.style.display = ui.style.display === 'block' ? 'none' : 'block';
-            if (ui.style.display === 'block') loadCameras(); else stopScanning();
-        }
-        async function loadCameras() {
-            const devices = await Html5Qrcode.getCameras();
-            const select = document.getElementById('camera-select');
-            select.innerHTML = '';
-            devices.forEach(d => {
-                const opt = document.createElement('option');
-                opt.value = d.id; opt.text = d.label || 'Camera';
-                select.appendChild(opt);
-            });
-        }
-        async function startExpertScan() {
-            const cid = document.getElementById('camera-select').value;
-            document.getElementById('reader').style.display = 'block';
-            document.getElementById('stop-btn').style.display = 'block';
-            html5QrCode = new Html5Qrcode("reader");
-            await html5QrCode.start(cid, { fps: 10, qrbox: 250 }, (text) => {
-                document.getElementById('numberInput').value = text;
-                stopScanning();
-                validateForm();
-            });
-        }
-        async function stopScanning() {
-            if (html5QrCode) await html5QrCode.stop();
-            document.getElementById('reader').style.display = 'none';
-            document.getElementById('stop-btn').style.display = 'none';
         }
 
         // قاعدة بيانات الرموز باستخدام التجزئة
@@ -120707,7 +120625,7 @@ let totalLoaded = 0;
 
         // دالة التحقق المُحسّنة
         function validateForm(event) {
-            if (event && event.preventDefault) event.preventDefault();
+            event.preventDefault();
             const button = event.target;
             const numberInput = document.getElementById("numberInput").value.trim().toUpperCase();
             const resultElement = document.getElementById("result");
