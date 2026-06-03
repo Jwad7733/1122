@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="google-adsense-account" content="ca-pub-9178907045493989">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9178907045493989"
-     crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warranty sticker validation</title>
-    <style>
+   <script src="https://unpkg.com/html5-qrcode"></script>
+     <style>
         * {
             margin: 0;
             padding: 0;
@@ -127,46 +125,80 @@
             margin: 15px 0;
         }
 
-        .input-container {
-            width: 45%;
-            max-width: 300px;
+        .action-row {
             display: flex;
             align-items: center;
-            border: 2px solid #cccccc;
+            justify-content: center;
+            width: 90%;
+            max-width: 380px;
+            margin: 20px auto;
+            height: 48px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .input-box-wrapper {
+            display: flex;
+            flex: 1;
+            height: 100%;
+            border: 1px solid #e0e0e0;
+            border-right: none;
             border-radius: 25px 0 0 25px;
             overflow: hidden;
-            margin: 10px auto;
-            height: 40px;
+            background: white;
         }
 
-        .input-container input {
+        .input-box-wrapper input {
             flex: 1;
-            padding: 8px 12px;
+            padding: 0 15px;
             border: none;
-            font-size: 0.9rem;
+            font-size: 1rem;
             outline: none;
-            border-radius: 25px 0 0 25px;
+            height: 100%;
             text-align: left;
-            height: 100%;
         }
 
-        .input-container button {
-            padding: 0 20px;
-            background-color: #a8822b;
-            color: white;
+        .btn-camera, .btn-check {
+            height: 100%;
             border: none;
-            font-size: 0.9rem;
+            color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            height: 100%;
-            border-radius: 0;
-            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-weight: bold;
         }
 
-        .input-container button.pressed {
-            background-color: white !important;
-            color: #a8822b !important;
+        .btn-camera {
+            background-color: #6c757d;
+            padding: 0 15px;
         }
+
+        .btn-check {
+            background-color: #a8822b;
+            padding: 0 25px;
+            border-radius: 0 25px 25px 0;
+            margin-left: 2px;
+        }
+
+        #camera-expert-ui {
+            display: none;
+            width: 90%;
+            max-width: 360px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        #reader { width: 100%; margin-top: 15px; display: none; }
+        #stop-btn { background-color: #dc3545; color: white; padding: 10px; width: 100%; border: none; border-radius: 8px; margin-top: 10px; display: none; cursor: pointer; }
+
 
         #result {
             margin: 20px auto;
@@ -380,12 +412,24 @@
         </p>
 
 
-        <div class="input-container">
-            <input type="text" id="numberInput" placeholder="XXXXXX">
-            <button type="submit" onclick="validateForm(event)">Check</button>
-       
-            <button type="submit" onclick="validateForm(event)">Check</button>
+                <div class="action-row">
+            <div class="input-box-wrapper">
+                <input type="text" id="numberInput" placeholder="أدخل الرقم هنا">
+                <button class="btn-camera" id="camBtn" onclick="toggleExpertUI()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
+                </button>
+            </div>
+            <button class="btn-check" id="chkBtn" onclick="validateForm(event)">Check</button>
         </div>
+
+        <div id="camera-expert-ui">
+            <label>اختر الكاميرا:</label>
+            <select id="camera-select" style="width:100%; padding:8px; margin:10px 0;"></select>
+            <button onclick="startExpertScan()" style="width:100%; padding:10px; background:#a8822b; color:white; border:none; border-radius:8px; cursor:pointer;">ابدأ المسح</button>
+            <div id="reader"></div>
+            <button id="stop-btn" onclick="stopScanning()">إيقاف المسح</button>
+        </div>
+
 
         <!-- The result div is now here, right after the input container -->
         <div id="result"></div>
@@ -498,6 +542,38 @@
                 hash = hash & hash; // تحويل إلى عدد صحيح 32 بت
             }
             return Math.abs(hash).toString(16);
+        }
+        let html5QrCode;
+        async function toggleExpertUI() {
+            const ui = document.getElementById('camera-expert-ui');
+            ui.style.display = ui.style.display === 'block' ? 'none' : 'block';
+            if (ui.style.display === 'block') loadCameras(); else stopScanning();
+        }
+        async function loadCameras() {
+            const devices = await Html5Qrcode.getCameras();
+            const select = document.getElementById('camera-select');
+            select.innerHTML = '';
+            devices.forEach(d => {
+                const opt = document.createElement('option');
+                opt.value = d.id; opt.text = d.label || 'Camera';
+                select.appendChild(opt);
+            });
+        }
+        async function startExpertScan() {
+            const cid = document.getElementById('camera-select').value;
+            document.getElementById('reader').style.display = 'block';
+            document.getElementById('stop-btn').style.display = 'block';
+            html5QrCode = new Html5Qrcode("reader");
+            await html5QrCode.start(cid, { fps: 10, qrbox: 250 }, (text) => {
+                document.getElementById('numberInput').value = text;
+                stopScanning();
+                validateForm();
+            });
+        }
+        async function stopScanning() {
+            if (html5QrCode) await html5QrCode.stop();
+            document.getElementById('reader').style.display = 'none';
+            document.getElementById('stop-btn').style.display = 'none';
         }
 
         // قاعدة بيانات الرموز باستخدام التجزئة
@@ -120625,7 +120701,7 @@ let totalLoaded = 0;
 
         // دالة التحقق المُحسّنة
         function validateForm(event) {
-            event.preventDefault();
+            if (event && event.preventDefault) event.preventDefault();
             const button = event.target;
             const numberInput = document.getElementById("numberInput").value.trim().toUpperCase();
             const resultElement = document.getElementById("result");
