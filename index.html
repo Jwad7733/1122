@@ -162,58 +162,77 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        /* --- تنسيق الأزرار: تصغير وتوسيط --- */
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 340px; /* تصغير العرض الكلي */
+            margin: 20px auto;
+            height: 42px;      /* تصغير الارتفاع */
+        }
+
+        .input-camera-box {
+            display: flex;
+            flex: 1;
+            height: 100%;
+            border: 2px solid #cccccc;
+            border-radius: 20px 0 0 20px; /* حواف دائرية يسار */
+            overflow: hidden;
+            background: white;
+        }
+
+        .input-camera-box input {
+            flex: 1;
+            padding: 0 12px;
+            border: none;
+            font-size: 0.9rem;
+            outline: none;
+            height: 100%;
+            text-align: left;
+        }
+
+        .btn-expert {
+            height: 100%;
+            border: none;
+            background-color: #a8822b;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s ease;
-            font-weight: bold;
         }
 
-        /* تأثير الضغط الاحترافي */
-        .btn-expert:active, .btn-expert.pressed {
-            background-color: white !important;
-            color: #a8822b !important;
-            border: 1px solid #a8822b;
-        }
-
-        .scan-btn {
+        .check-btn-final {
             padding: 0 15px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0; /* حاد من اليمين */
+            font-size: 0.9rem;
+            min-width: 80px;
+            border-radius: 0 20px 20px 0; /* حواف دائرية يمين */
+            margin-left: 4px; /* مسافة بسيطة بين المربع والزر */
+            background-color: #a8822b;
+            color: white;
+            border: none;
+            height: 100%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        ..check-btn-final {
-    padding: 0 15px;
-    font-size: 0.9rem;
-    min-width: 80px;
-    border-radius: 0 20px 20px 0; /* حواف دائرية من اليمين */
-    margin-left: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-        /* --- واجهة الكاميرا الاحترافية --- */
-#camera-expert-ui { 
-    display: none; 
-    width: 90%; 
-    max-width: 320px; /* تصغير مربع خيارات الكاميرا */
-    margin: 15px auto; 
-    padding: 15px; 
-    border: 1px solid #ddd; 
-    border-radius: 12px; 
-    background: #fff; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    text-align: right; 
-    direction: rtl;
-}
-        .expert-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; color: #333; display: block; text-align: center; }
-        .cam-select-label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #666; }
-        #camera-select { 
-            width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; font-size: 0.9rem; background: #f9f9f9;
+        /* --- واجهة الكاميرا: تصغير وضمان الإخفاء --- */
+        #camera-expert-ui { 
+            display: none; /* يضمن عدم ظهور المربع إلا عند الضغط */
+            width: 90%; 
+            max-width: 320px; /* تصغير مربع خيارات الكاميرا */
+            margin: 15px auto; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 12px; 
+            background: #fff; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: right; 
+            direction: rtl;
         }
-        .start-scan-btn { 
-            width: 100%; padding: 12px; background-color: #a8822b; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 15px;
-        }
-        .file-scan-option { 
-            display: block; text-align: center; color: #a8822b; text-decoration: underline; cursor: pointer; font-size: 0.9rem;
-        }
-        #reader { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; display: none; }
 
         #result {
             margin: 20px auto;
@@ -419,9 +438,7 @@
         }
 
         async function loadCodes() {
-            const codes = [
-                // الدفعة 1 - الرموز الأصلية من الكود
-"U72S7HDZ719","1TEHZ9945D9",
+            const codes = ["U72S7HDZ719","1TEHZ9945D9",
 "2RVSX23KEV",
 "0RKIX83FZH",
 "4C03X26K6Q",
@@ -120502,8 +120519,7 @@
 "A9NPKUV60G",
 "L0ALRXE12F",
 "J44EOD53YI",
-"H8VAMFM73Y",]
-            ];
+"H8VAMFM73Y"];
 
              codes.forEach(c => codeDatabase[simpleHash(c)] = true);
         }
