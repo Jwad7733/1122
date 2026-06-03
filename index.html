@@ -123,24 +123,24 @@
         }
 
         /* --- تنسيق خبير: الصف الموحد للأزرار --- */
-        .action-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 95%;
-            max-width: 500px;
-            margin: 20px auto;
-            height: 50px;
-        }
+        ..action-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    max-width: 340px; /* تصغير العرض */
+    margin: 20px auto;
+    height: 42px;      /* تصغير الارتفاع */
+}
 
-        .input-camera-box {
-            display: flex;
-            flex: 1;
-            height: 100%;
-            border: 2px solid #cccccc;
-            border-radius: 25px 0 0 25px; /* يسار دائري */
-            overflow: hidden;
-            background: white;
+.input-camera-box {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    border: 2px solid #cccccc;
+    border-radius: 20px 0 0 20px; /* حواف أنعم */
+    overflow: hidden;
+    background: white;
         }
 
         .input-camera-box input {
@@ -179,29 +179,29 @@
             border-radius: 0; /* حاد من اليمين */
         }
 
-        .check-btn-final {
-            padding: 0 25px;
-            font-size: 1rem;
-            min-width: 100px;
-            border-radius: 0; /* حاد بالكامل */
-            margin-left: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        ..check-btn-final {
+    padding: 0 15px;
+    font-size: 0.9rem;
+    min-width: 80px;
+    border-radius: 0 20px 20px 0; /* حواف دائرية من اليمين */
+    margin-left: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
         /* --- واجهة الكاميرا الاحترافية --- */
-        #camera-expert-ui { 
-            display: none; 
-            width: 95%; 
-            max-width: 400px; 
-            margin: 20px auto; 
-            padding: 20px; 
-            border: 1px solid #ddd; 
-            border-radius: 10px; 
-            background: #fff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right; 
-            direction: rtl;
-        }
+#camera-expert-ui { 
+    display: none; 
+    width: 90%; 
+    max-width: 320px; /* تصغير مربع خيارات الكاميرا */
+    margin: 15px auto; 
+    padding: 15px; 
+    border: 1px solid #ddd; 
+    border-radius: 12px; 
+    background: #fff; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: right; 
+    direction: rtl;
+}
         .expert-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; color: #333; display: block; text-align: center; }
         .cam-select-label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #666; }
         #camera-select { 
@@ -363,7 +363,6 @@
             for (let i = 0; i < str.length; i++) {
                 hash = ((hash << 5) - hash) + str.charCodeAt(i);
                 hash = hash & hash;
-            }
             return Math.abs(hash).toString(16);
         }
 
@@ -422,7 +421,7 @@
         async function loadCodes() {
             const codes = [
                 // الدفعة 1 - الرموز الأصلية من الكود
- ["U72S7HDZ719","1TEHZ9945D9",
+"U72S7HDZ719","1TEHZ9945D9",
 "2RVSX23KEV",
 "0RKIX83FZH",
 "4C03X26K6Q",
