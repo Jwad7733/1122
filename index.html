@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="google-adsense-account" content="ca-pub-9178907045493989">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9178907045493989"
+     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warranty sticker validation</title>
-    <!-- إضافة مكتبة الكاميرا -->
-    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         * {
             margin: 0;
@@ -19,7 +20,6 @@
             background-color: #f4f4f9;
             color: #333;
             line-height: 1.6;
-            padding-bottom: 80px;
         }
 
         .container {
@@ -50,6 +50,11 @@
             text-decoration: none;
         }
 
+        .breadcrumb a:hover {
+            color: #333 !important;
+            text-decoration: underline;
+        }
+
         h2 {
             color: #2c3e50;
             font-size: 1.5rem;
@@ -65,7 +70,7 @@
             font-size: 1rem;
             line-height: 1.8;
             max-width: 800px;
-            margin: 20px auto 30px auto;
+            margin: 20px auto 30px auto; /* تقليل المسافة العلوية */
         }
         
         .arabic-text {
@@ -77,7 +82,7 @@
         
         .warning-message {
             color: red;
-            margin: 20px 0;
+            margin: 20px 0; /* تقليل المسافة */
             padding: 0;
             text-align: center;
             font-size: 0.9rem;
@@ -122,134 +127,46 @@
             margin: 15px 0;
         }
 
-        /* --- تنسيق خبير: الصف الموحد للأزرار --- */
-        /* --- تنسيق الأزرار: تصغير وتوسيط --- */
-        .action-row {
+        .input-container {
+            width: 45%;
+            max-width: 300px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 90%;
-            max-width: 340px; /* تصغير العرض الكلي */
-            margin: 20px auto;
-            height: 42px;      /* تصغير الارتفاع */
-        }
-
-        .input-camera-box {
-            display: flex;
-            flex: 1;
-            height: 100%;
             border: 2px solid #cccccc;
-            border-radius: 20px 0 0 20px; /* حواف دائرية يسار */
+            border-radius: 25px 0 0 25px;
             overflow: hidden;
-            background: white;
+            margin: 10px auto;
+            height: 40px;
         }
 
-        .input-camera-box input {
+        .input-container input {
             flex: 1;
-            padding: 0 12px;
+            padding: 8px 12px;
             border: none;
             font-size: 0.9rem;
             outline: none;
-            height: 100%;
+            border-radius: 25px 0 0 25px;
             text-align: left;
+            height: 100%;
         }
 
-        .btn-expert {
-            height: 100%;
-            border: none;
+        .input-container button {
+            padding: 0 20px;
             background-color: #a8822b;
             color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .check-btn-final {
-            padding: 0 15px;
+            border: none;
             font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100%;
+            border-radius: 0;
             min-width: 80px;
-            border-radius: 0 20px 20px 0; /* حواف دائرية يمين */
-            margin-left: 4px; /* مسافة بسيطة بين المربع والزر */
-            background-color: #a8822b;
-            color: white;
-            border: none;
-            height: 100%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* --- واجهة الكاميرا: تصغير وضمان الإخفاء --- */
-        #camera-expert-ui { 
-            display: none; /* يضمن عدم ظهور المربع إلا عند الضغط */
-            width: 90%; 
-            max-width: 320px; /* تصغير مربع خيارات الكاميرا */
-            margin: 15px auto; 
-            padding: 15px; 
-            border: 1px solid #ddd; 
-            border-radius: 12px; 
-            background: #fff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right; 
-            direction: rtl;
-        }
-
-
-        .input-camera-box {
-            display: flex;
-            flex: 1;
-            height: 100%;
-            border: 2px solid #cccccc;
-            border-radius: 20px 0 0 20px; /* تقليل الانحناء ليناسب الارتفاع الجديد */
-            overflow: hidden;
-            background: white;
-        }
-
-        .input-camera-box input {
-            flex: 1;
-            padding: 0 10px;
-            border: none;
-            font-size: 0.9rem; /* تصغير الخط قليلاً */
-            outline: none;
-            height: 100%;
-            text-align: left;
-        }
-
-        .btn-expert {
-            height: 100%;
-            border: none;
-            background-color: #a8822b;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            font-weight: bold;
-        }
-
-        .btn-expert:active, .btn-expert.pressed {
+        .input-container button.pressed {
             background-color: white !important;
             color: #a8822b !important;
-            border: 1px solid #a8822b;
         }
-
-        .scan-btn {
-            padding: 0 10px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0;
-        }
-
-        .check-btn-final {
-            padding: 0 15px;
-            font-size: 0.9rem; /* تصغير الخط */
-            min-width: 80px;   /* تصغير عرض الزر */
-            border-radius: 0; 
-            margin-left: 5px;  /* الحفاظ على الفراغ كما هو في كودك الأصلي */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
 
         #result {
             margin: 20px auto;
@@ -261,34 +178,171 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            background-color: transparent;
+            border: none;
         }
 
-        .success { color: #28a745; font-weight: bold; }
-        .error { color: #ff0000; font-weight: bold; }
+        .success {
+            color: #90EE90;
+            font-weight: bold;
+        }
 
-        /* --- الحاشية السفلية الأصلية --- */
+        .error {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
         .links {
-            display: flex; justify-content: space-between; margin-top: 20px; text-align: left; padding-left: 40px; flex-wrap: wrap;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            text-align: left;
+            padding-left: 40px;
         }
-        .links-section { flex: 1; margin-left: 15px; text-align: left; min-width: 200px; margin-bottom: 20px; }
-        .links-section h2 { text-align: left; font-size: 1.2rem; margin: 0 0 8px 0; color: #2c3e50; }
-        .links-grid { display: flex; flex-direction: column; gap: 2px; }
-        .link-row { display: flex; justify-content: space-between; align-items: center; min-height: 18px; }
-        .link-left { text-align: left; flex: 1; }
-        .link-right { text-align: left; flex: 1; padding-left: 5px; margin-left: -40px; }
-        .links-section a { color: #333; text-decoration: none; font-size: 0.9rem; }
-        .links-section a:hover { color: #a8822b; text-decoration: underline; }
+
+        .links-section {
+            flex: 1;
+            margin-left: 15px;
+            text-align: left;
+        }
+
+        .links-section h2 {
+            text-align: left;
+            font-size: 1.2rem;
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+        }
+
+        .links-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .link-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 18px;
+        }
+
+        .link-left {
+            text-align: left;
+            flex: 1;
+        }
+
+        .link-right {
+            text-align: left;
+            flex: 1;
+            padding-left: 5px;
+            margin-left: -40px;
+        }
+
+        .links-section a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .links-section a:hover {
+            color: #a8822b;
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            margin-top: 6px;
+        }
+
+        .contact-info p {
+            margin: 2px 0;
+            line-height: 1.2;
+            font-size: 0.9rem;
+        }
 
         .bottom-buttons {
-            display: flex; justify-content: space-around; align-items: center; padding: 8px 20px; background-color: white; border-top: 1px solid #ddd; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 20px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
-        .bottom-buttons button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: #777; padding: 5px 10px; }
-        .home-icon { width: 20px; height: 20px; fill: none; stroke: #777; stroke-width: 2; }
+
+        .bottom-buttons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #777;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .bottom-buttons button:hover {
+            color: #333;
+        }
+
+        .home-button {
+            margin-left: 20px;
+        }
+
+        .menu-button {
+            margin-right: 20px;
+        }
+
+        .home-icon {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: #777;
+            stroke-width: 2;
+            transition: stroke 0.3s ease;
+        }
+
+        .home-button:hover .home-icon {
+            stroke: #333;
+        }
 
         @media (max-width: 768px) {
-            .links { flex-direction: column; padding-left: 20px; }
-            .links-section { margin-left: 0; }
-            .link-right { margin-left: 0; text-align: center; }
+            .input-container {
+                width: 70%;
+            }
+            
+            .input-container button {
+                padding: 12px 20px;
+            }
+
+            .links {
+                flex-direction: column;
+                padding-left: 20px;
+            }
+
+            .links-section {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+
+            .link-right {
+                margin-left: 0;
+                text-align: center;
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-container {
+                width: 90%;
+            }
+            
+            .input-container button {
+                padding: 10px 15px;
+            }
         }
     </style>
 </head>
@@ -301,17 +355,23 @@
             </div>
         </div>
 
-        <h2>Warranty sticker validation</h2>
+            <h2>Warranty sticker validation</h2>
 
         <p class="main-description">
             Check if the warranty sticker on your product is genuine.<br>
             تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف
-        </p>
+          </p>
  
-        <span class="arabic-text">الشكل القديم </span>
+            <span class="arabic-text">الشكل القديم </span>
+     
+        </p>
+
         <img src="https://i.postimg.cc/1XhL17mC/Screenshot-20251026-022901.jpg" alt="Website Banner" class="banner">
-        
+<p class="main-description">
         <span class="arabic-text">الشكل الجديد</span>
+     
+        </p>
+
         <img src="https://i.ibb.co/3m3r1TWK/Warranty-sticker-26.jpg" alt="Website Banner" class="banner">
         
         <p class="input-instruction">
@@ -319,29 +379,15 @@
             أدخل الرقم الموجود على الملصق هنا   
         </p>
 
-        <!-- الصف الموحد للخبير -->
-        <div class="action-row">
-            <div class="input-camera-box">
-                <input type="text" id="numberInput" placeholder="أدخل الرقم هنا">
-                <button class="btn-expert scan-btn" id="camBtn" onclick="toggleExpertUI()" title="فتح خيارات الكاميرا">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M4 4h3V2H2v5h2V4zm14-2v2h3v3h2V2h-5zM2 22h5v-2H4v-3H2v5zm20-5v3h-3v2h5v-5h-2zM7 7h10v10H7V7zm2 2v6h6V9H9z"/></svg>
-                </button>
-            </div>
-            <button class="btn-expert check-btn-final" id="chkBtn" onclick="validateForm(event)">Check</button>
+
+        <div class="input-container">
+            <input type="text" id="numberInput" placeholder="XXXXXX">
+            <button type="submit" onclick="validateForm(event)">Check</button>
+       
+            <button type="submit" onclick="validateForm(event)">Check</button>
         </div>
 
-        <!-- واجهة الكاميرا -->
-        <div id="camera-expert-ui">
-            <span class="expert-title">المسح الضوئي القائم على الكاميرا</span>
-            <label class="cam-select-label" id="cam-count-label">اختر الكاميرا (جاري البحث...)</label>
-            <select id="camera-select"><option value="">جاري تحميل الكاميرات...</option></select>
-            <button class="start-scan-btn" onclick="startExpertScan()">ابدأ المسح</button>
-            <span class="file-scan-option" onclick="document.getElementById('file-input').click()">مسح ملف صورة ضوئيًا</span>
-            <input type="file" id="file-input" accept="image/*" style="display:none" onchange="scanFile(this)">
-            <div id="reader"></div>
-            <button id="stop-btn" class="start-scan-btn" style="background:#dc3545; margin-top:10px; display:none;" onclick="stopScanning()">إيقاف المسح</button>
-        </div>
-
+        <!-- The result div is now here, right after the input container -->
         <div id="result"></div>
 
         <div class="warning-message">
@@ -360,98 +406,98 @@
     <div class="bottom-buttons">
         <button class="menu-button">☰</button>
         <button class="home-button" onclick="window.location.href='https://arabcomputers.com.sa/'">
-            <svg class="home-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            <svg class="home-icon" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
         </button>
     </div>  
 
     <div class="links">
         <div class="left-section">
-            <img src="https://i.postimg.cc/SKC7Wqhm/Screenshot-com-android-chrome.png" alt="بانر الموقع" class="banner" style="margin-bottom: 20px; width: 200px;">
+            <div>
+                <img src="https://i.postimg.cc/SKC7Wqhm/Screenshot-com-android-chrome.png" alt="بانر الموقع" class="banner" style="margin-bottom: 20px;"> <!-- إضافة مسافة تحت الصورة -->
+            </div>
         </div>
+
+        <!-- Useful Links Section -->
         <div class="links-section">
             <h2>Useful Links</h2>
             <div class="links-grid">
-                <div class="link-row"><div class="link-left"><a href="https://arabcomputers.com.sa/">Home</a></div><div class="link-right"><strong><a href="https://arabcomputers.com.sa/dpp/">DPP</a></strong></div></div>
-                <div class="link-row"><div class="link-left"><a href="https://arabcomputers.com.sa/point-of-sales/">Point Of Sales</a></div></div>
-                <div class="link-row"><div class="link-left"><a href="https://arabcomputers.com.sa/contact/">Contact Us</a></div></div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/">Home</a></div>
+                    <div class="link-right"><strong><a href="https://arabcomputers.com.sa/dpp/" style="color: #333; text-decoration: none;">DPP</a></strong></div>
+                </div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/point-of-sales/">Point Of Sales</a></div>
+                    <div class="link-right"></div>
+                </div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/contact/">Contact Us</a></div>
+                    <div class="link-right"></div>
+                </div>
             </div>
         </div>
+
+        <!-- Products Section -->
         <div class="links-section">
             <h2>Products</h2>
             <div class="links-grid">
-                <div class="link-row"><div class="link-left"><a href="https://arabcomputers.com.sa/product-category/iphone/">iPhone</a></div><div class="link-right"><a href="https://arabcomputers.com.sa/product-category/ipad/">iPad</a></div></div>
-                <div class="link-row"><div class="link-left"><a href="https://arabcomputers.com.sa/product-category/mac/">Mac</a></div><div class="link-right"><a href="https://arabcomputers.com.sa/product-category/apple-tv/">Apple TV</a></div></div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/product-category/iphone/">iPhone</a></div>
+                    <div class="link-right"><a href="https://arabcomputers.com.sa/product-category/ipad/">iPad</a></div>
+                </div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/product-category/mac/">Mac</a></div>
+                    <div class="link-right"><a href="https://arabcomputers.com.sa/product-category/apple-tv/">Apple TV</a></div>
+                </div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/product-category/ipod/">iPod</a></div>
+                    <div class="link-right"><a href="https://arabcomputers.com.sa/product-category/apple-watch/">Apple Watch</a></div>
+                </div>
             </div>
         </div>
+
+        <!-- Information Section -->
+        <div class="links-section">
+            <h2>Information</h2>
+            <div class="links-grid">
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Learn How</a></div>
+                    <div class="link-right"><a href="https://arabcomputers.com.sa/terms-and-conditions/">Terms and condition</a></div>
+                </div>
+                <div class="link-row">
+                    <div class="link-left"><a href="https://arabcomputers.com.sa/apple-authorised-service-provider/">Service Providers</a></div>
+                    <div class="link-right"><a href="https://arabcomputers.com.sa/terms-and-conditions/">Condition</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support and Sales Section -->
         <div class="links-section">
             <h2>Support and Sales</h2>
             <div class="contact-info">
-                <p><strong>For Maintenance:</strong> <a href="https://ac-care.com.sa/">Visit AC-Care</a></p>
-                <p><strong>For Sales:</strong> <a href="mailto:sales@arabcomputers.com.sa">sales@arabcomputers.com.sa</a></p>
+                <p><strong>For Maintenance:</strong></p>
+                <p><a href="https://ac-care.com.sa/">Visit AC-Care</a></p>
+                
+                <p><strong>For Individual Sales:</strong></p>
+                <p><a href="https://arabcomputers.com.sa/point-of-sales/">Point of Sales</a></p>
+                
+                <p><strong>For corporate or channels sales:</strong></p>
+                <p><a href="mailto:sales@arabcomputers.com.sa">sales@arabcomputers.com.sa</a></p>
             </div>
         </div>
     </div>
 
     <script>
-        const codeDatabase = {};
+        // دالة تجزئة سريعة وفعالة
         function simpleHash(str) {
             let hash = 0;
             for (let i = 0; i < str.length; i++) {
-                hash = ((hash << 5) - hash) + str.charCodeAt(i);
-                hash = hash & hash;
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // تحويل إلى عدد صحيح 32 بت
+            }
             return Math.abs(hash).toString(16);
-        }
-
-        let html5QrCode;
-        const resultDiv = document.getElementById('result');
-        const cameraSelect = document.getElementById('camera-select');
-
-        async function toggleExpertUI() {
-            const ui = document.getElementById('camera-expert-ui');
-            const btn = document.getElementById('camBtn');
-            btn.classList.add('pressed');
-            setTimeout(() => btn.classList.remove('pressed'), 200);
-            ui.style.display = ui.style.display === 'block' ? 'none' : 'block';
-            if (ui.style.display === 'block') loadCameras(); else stopScanning();
-        }
-
-        async function loadCameras() {
-            try {
-                const devices = await Html5Qrcode.getCameras();
-                cameraSelect.innerHTML = '';
-                devices.forEach((device, i) => {
-                    const opt = document.createElement('option');
-                    opt.value = device.id; opt.text = device.label || `Camera ${i}`;
-                    cameraSelect.appendChild(opt);
-                });
-            } catch (err) {}
-        }
-
-        async function startExpertScan() {
-            const cid = cameraSelect.value;
-            if (!cid) return alert("اختر كاميرا أولاً");
-            document.getElementById('reader').style.display = 'block';
-            document.getElementById('stop-btn').style.display = 'block';
-            html5QrCode = new Html5Qrcode("reader");
-            await html5QrCode.start(cid, { fps: 10, qrbox: 250 }, (text) => {
-                document.getElementById('numberInput').value = text;
-                stopScanning();
-                validateForm();
-            });
-        }
-
-        async function stopScanning() {
-            if (html5QrCode) await html5QrCode.stop().catch(() => {});
-            document.getElementById('reader').style.display = 'none';
-            document.getElementById('stop-btn').style.display = 'none';
-        }
-
-        function scanFile(input) {
-            if (!input.files[0]) return;
-            new Html5Qrcode("reader").scanFile(input.files[0], true).then(text => {
-                document.getElementById('numberInput').value = text;
-                validateForm();
-            });
         }
 
         // قاعدة بيانات الرموز باستخدام التجزئة
@@ -467,6 +513,9 @@
                 // الدفعة 1 - الرموز الأصلية من الكود
  ["U72S7HDZ719","1TEHZ9945D9",
 "2RVSX23KEV",
+"0RKIX83FZH",
+"4C03X26K6Q",
+"7KKLXZ8ULV",
 "1HSIX78G2K",
 "1H3EXR1ZZ8",
 "7YTAXQ9G66",
@@ -120542,35 +120591,78 @@
 "642TLEE8HV",
 "A9NPKUV60G",
 "L0ALRXE12F",
-"L0ALRXE12F",
 "J44EOD53YI",
 "H8VAMFM73Y",]
             ];
 
  
 let totalLoaded = 0;
-
-             codes.forEach(c => codeDatabase[simpleHash(c)] = true);
+            
+            for (let i = 0; i < batches.length; i++) {
+                const batch = batches[i];
+                console.log(`جاري معالجة الدفعة ${i + 1} (${batch.length} رمز)`);
+                
+                for (const code of batch) {
+                    const hash = simpleHash(code);
+                    codeDatabase[hash] = true;
+                    totalLoaded++;
+                }
+                
+                // إعطاء فرصة للمتصفح لمعالجة الأحداث الأخرى
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+            
+            console.log(`✅ تم تحميل ${totalLoaded} رمز بنجاح`);
+            return totalLoaded;
         }
 
-        function validateForm(e) {
-            if (e) e.preventDefault();
-            const btn = document.getElementById('chkBtn');
-            const val = document.getElementById("numberInput").value.trim().toUpperCase();
-            btn.classList.add('pressed');
+        // بدء تحميل الرموز عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCodesInBatches().then(count => {
+                console.log(`جاهز للتحقق من ${count} رمز`);
+            });
+        });
+
+        // دالة التحقق المُحسّنة
+        function validateForm(event) {
+            event.preventDefault();
+            const button = event.target;
+            const numberInput = document.getElementById("numberInput").value.trim().toUpperCase();
+            const resultElement = document.getElementById("result");
+            
+            button.classList.add('pressed');
+            resultElement.className = '';
+            resultElement.textContent = '';
+
+            const usedCodes = JSON.parse(localStorage.getItem("usedCodes")) || [];
+
             setTimeout(() => {
-                if (codeDatabase[simpleHash(val)]) {
-                    resultDiv.innerHTML = "<span class='success'>The code is correct ✅ هذا الرمز صحيح!</span>";
+                // البحث باستخدام التجزئة - أسرع بكثير من البحث في المصفوفة
+                const inputHash = simpleHash(numberInput);
+                
+                if (usedCodes.includes(numberInput)) {
+                    resultElement.textContent = "code is already used❌ تم استخدام هذا الرمز !";
+                    resultElement.className = 'error';
+                } else if (codeDatabase[inputHash]) {
+                    usedCodes.push(numberInput);
+                    localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
+                    resultElement.textContent = "The code is correct ✅ هذا الرمز صحيح";
+                    resultElement.className = 'success';
                 } else {
-                    resultDiv.innerHTML = "<span class='error'>Code not found ❌ هذا الرمز غير موجود !</span>";
+                    resultElement.textContent = "Code not found ❌ هذا الرمز غير موجود !";
+                    resultElement.className = 'error';
                 }
-                btn.classList.remove('pressed');
+                
+                button.classList.remove('pressed');
             }, 500);
         }
 
-        document.addEventListener('DOMContentLoaded', loadCodes);
-        document.getElementById('numberInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') validateForm(e); });
-  
-        </script>
+        // إضافة إمكانية استخدام زر Enter
+        document.getElementById('numberInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateForm(e);
+            }
+        });
+    </script>
 </body>
-</html>                   
+</html>  
