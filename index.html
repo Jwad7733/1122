@@ -454,12 +454,19 @@
             });
         }
 
-        async function loadCodes() {
-            const codes = ["U72S7HDZ719","1TEHZ9945D9",
+        // قاعدة بيانات الرموز باستخدام التجزئة
+        const codeDatabase = {};
+
+        // تحميل الرموز على دفعات
+        async function loadCodesInBatches() {
+            console.log("بدء تحميل الرموز...");
+
+            
+            // تقسيم الرموز إلى دفعات (يمكنك إضافة المزيد من الرموز هنا)
+            const batches = [
+                // الدفعة 1 - الرموز الأصلية من الكود
+ ["U72S7HDZ719","1TEHZ9945D9",
 "2RVSX23KEV",
-"0RKIX83FZH",
-"4C03X26K6Q",
-"7KKLXZ8ULV",
 "1HSIX78G2K",
 "1H3EXR1ZZ8",
 "7YTAXQ9G66",
@@ -120535,8 +120542,13 @@
 "642TLEE8HV",
 "A9NPKUV60G",
 "L0ALRXE12F",
+"L0ALRXE12F",
 "J44EOD53YI",
-"H8VAMFM73Y"];
+"H8VAMFM73Y",]
+            ];
+
+ 
+let totalLoaded = 0;
 
              codes.forEach(c => codeDatabase[simpleHash(c)] = true);
         }
