@@ -159,99 +159,12 @@
             text-align: left;
         }
 
-        
-        /* --- تنسيق خبير: الصف الموحد للأزرار --- */
-        .action-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 95%;
-            max-width: 500px;
-            margin: 20px auto;
-            height: 50px;
-        }
-
-        .input-camera-box {
-            display: flex;
-            flex: 1;
-            height: 100%;
-            border: 2px solid #cccccc;
-            border-radius: 25px 0 0 25px; /* يسار دائري */
-            overflow: hidden;
-            background: white;
-        }
-
-        .input-camera-box input {
-            flex: 1;
-            padding: 0 15px;
-            border: none;
-            font-size: 1rem;
-            outline: none;
-            height: 100%;
-            text-align: left;
-        }
-
-        .btn-expert {
-            height: 100%;
-            border: none;
+                 .btn-check {
             background-color: #a8822b;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            font-weight: bold;
-        }
-
-        /* تأثير الضغط الاحترافي */
-        .btn-expert:active, .btn-expert.pressed {
-            background-color: white !important;
-            color: #a8822b !important;
-            border: 1px solid #a8822b;
-        }
-
-        .scan-btn {
-            padding: 0 15px;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            border-radius: 0; /* حاد من اليمين */
-        }
-
-        .check-btn-final {
             padding: 0 25px;
-            font-size: 1rem;
-            min-width: 100px;
-            border-radius: 0; /* حاد بالكامل */
-            margin-left: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 0 /* تم جعل جميع الزوايا حادة */
+            margin-left: 2px;
         }
-
-        /* --- واجهة الكاميرا الاحترافية --- */
-        #camera-expert-ui { 
-            display: none; 
-            width: 95%; 
-            max-width: 400px; 
-            margin: 20px auto; 
-            padding: 20px; 
-            border: 1px solid #ddd; 
-            border-radius: 10px; 
-            background: #fff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right; 
-            direction: rtl;
-        }
-        .expert-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; color: #333; display: block; text-align: center; }
-        .cam-select-label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #666; }
-        #camera-select { 
-            width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; font-size: 0.9rem; background: #f9f9f9;
-        }
-        .start-scan-btn { 
-            width: 100%; padding: 12px; background-color: #a8822b; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 15px;
-        }
-        .file-scan-option { 
-            display: block; text-align: center; color: #a8822b; text-decoration: underline; cursor: pointer; font-size: 0.9rem;
-        }
-        #reader { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; background: #000; display: none; }
 
         #result {
             margin: 20px auto;
