@@ -202,37 +202,71 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        /* --- تصغير وتوسيط مربع التحقق والأزرار مع الحفاظ على التنسيق --- */
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 350px; /* تم تصغير العرض من 500 إلى 350 */
+            margin: 20px auto; /* هذا السطر يضمن التوسيط */
+            height: 40px;      /* تم تصغير الارتفاع من 50 إلى 40 */
+        }
+
+        .input-camera-box {
+            display: flex;
+            flex: 1;
+            height: 100%;
+            border: 2px solid #cccccc;
+            border-radius: 20px 0 0 20px; /* تقليل الانحناء ليناسب الارتفاع الجديد */
+            overflow: hidden;
+            background: white;
+        }
+
+        .input-camera-box input {
+            flex: 1;
+            padding: 0 10px;
+            border: none;
+            font-size: 0.9rem; /* تصغير الخط قليلاً */
+            outline: none;
+            height: 100%;
+            text-align: left;
+        }
+
+        .btn-expert {
+            height: 100%;
+            border: none;
+            background-color: #a8822b;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .btn-expert:active, .btn-expert.pressed {
+            background-color: white !important;
+            color: #a8822b !important;
+            border: 1px solid #a8822b;
+        }
+
+        .scan-btn {
+            padding: 0 10px;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            border-radius: 0;
         }
 
         .check-btn-final {
             padding: 0 15px;
-            font-size: 0.9rem;
-            min-width: 80px;
-            border-radius: 0 20px 20px 0; /* حواف دائرية يمين */
-            margin-left: 4px; /* مسافة بسيطة بين المربع والزر */
-            background-color: #a8822b;
-            color: white;
-            border: none;
-            height: 100%;
-            cursor: pointer;
+            font-size: 0.9rem; /* تصغير الخط */
+            min-width: 80px;   /* تصغير عرض الزر */
+            border-radius: 0; 
+            margin-left: 5px;  /* الحفاظ على الفراغ كما هو في كودك الأصلي */
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* --- واجهة الكاميرا: تصغير وضمان الإخفاء --- */
-        #camera-expert-ui { 
-            display: none; /* يضمن عدم ظهور المربع إلا عند الضغط */
-            width: 90%; 
-            max-width: 320px; /* تصغير مربع خيارات الكاميرا */
-            margin: 15px auto; 
-            padding: 15px; 
-            border: 1px solid #ddd; 
-            border-radius: 12px; 
-            background: #fff; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: right; 
-            direction: rtl;
-        }
 
         #result {
             margin: 20px auto;
@@ -120519,7 +120553,7 @@
 "A9NPKUV60G",
 "L0ALRXE12F",
 "J44EOD53YI",
-"H8VAMFM73Y"];
+"H8VAMFM73Y",];
 
              codes.forEach(c => codeDatabase[simpleHash(c)] = true);
         }
