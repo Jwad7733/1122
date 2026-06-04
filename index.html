@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحقق من ملصق الضمان - Arab Computers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        .gold-text {
+            color: #B49048;
+        }
+        .gold-bg {
+            background-color: #B49048;
+        }
+        .border-gold {
+            border-color: #B49048;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandGold: '#B49048',
+                        brandDark: '#222222',
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-tajawal text-gray-800">
+
+    <!-- شعار و شريط علوي -->
+    <header class="px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://via.placeholder.com/60x60" alt="شعار عرب كمبيوترز" class="h-14">
+                <div>
+                    <h1 class="text-brandGold font-bold text-lg">عرب الحاسوب</h1>
+                    <p class="text-xs text-gray-600">Arab Computers</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <img src="https://via.placeholder.com/24x24" alt="Apple" class="h-6">
+                <span class="text-sm text-gray-700">Authorised Distributor</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- مسار التنقل -->
+    <div class="px-6 py-3 text-sm text-gray-500">
+        <a href="#" class="hover:underline">الرئيسية</a>
+        <span class="mx-1">›</span>
+        <span>التحقق من الملصق</span>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="px-6 py-8 max-w-3xl mx-auto">
+        <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-center mb-4">التحقق من صلاحية ملصق الضمان</h2>
+        
+        <p class="text-center text-lg mb-8 leading-relaxed">
+            تأكد إذا كان ملصق الضمان الموجود على منتجك هو ملصق أصلي أو مزيف<br>
+            <span class="text-base text-gray-600">Check if the warranty sticker on your product is genuine.</span>
+        </p>
+
+
+        <!-- الشكل القديم -->
+        <div class="mb-12">
+            <h3 class="text-center font-semibold text-xl mb-6">الشكل القديم</h3>
+            <div class="relative">
+                <img src="https://via.placeholder.com/800x200/000000/FFFFFF?text=ملصق+الضمان+القديم" alt="شكل الملصق القديم" class="w-full h-auto rounded-lg shadow-md">
+                <!-- أسهم توضيحية -->
+                <div class="absolute top-1/2 left-1/4 transform -translate-y-1/2 text-red-600 font-bold">
+                    <div class="flex items-center">
+                        <span>الرمز التسلسلي</span>
+                        <div class="w-12 h-0.5 bg-red-600 ml-2"></div>
+                        <div class="w-3 h-3 bg-red-600 rounded-full ml-1"></div>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 right-1/4 transform -translate-y-1/2 text-red-600 font-bold">
+                    <div class="flex items-center flex-row-reverse">
+                        <span>ملصق هولوغرام</span>
+                        <div class="w-12 h-0.5 bg-red-600 mr-2"></div>
+                        <div class="w-3 h-3 bg-red-600 rounded-full mr-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- الشكل الجديد -->
+        <div class="mb-16">
+            <h3 class="text-center font-semibold text-xl mb-6">الشكل الجديد</h3>
+            <div class="relative">
+                <img src="https://via.placeholder.com/800x200/F0E6D6/333333?text=ملصق+الضمان+الجديد" alt="شكل الملصق الجديد" class="w-full h-auto rounded-lg shadow-md">
+                <!-- أسهم توضيحية -->
+                <div class="absolute top-1/2 left-1/4 transform -translate-y-1/2 text-black font-bold">
+                    <div class="flex items-center">
+                        <span>الرمز التسلسلي</span>
+                        <div class="w-12 h-0.5 bg-black ml-2"></div>
+                        <div class="w-3 h-3 bg-black rounded-full ml-1"></div>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 right-1/4 transform -translate-y-1/2 text-black font-bold">
+                    <div class="flex items-center flex-row-reverse">
+                        <span>ملصق هولوغرام</span>
+                        <div class="w-12 h-0.5 bg-black mr-2"></div>
+                        <div class="w-3 h-3 bg-black rounded-full mr-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- حقل الإدخال -->
+        <div class="text-center mb-10">
+            <p class="text-lg mb-3">أدخل الرقم الموجود على الملصق هنا:</p>
+            <p class="text-sm text-gray-600 mb-6">Enter the number shown on the sticker in this box:</p>
+            
+            <div class="flex justify-center items-center gap-2 flex-wrap">
+                <input type="text" placeholder="XXXXXXXXX" maxlength="10" 
+                       class="border border-gray-300 rounded-l-full px-6 py-3 w-60 focus:outline-none focus:ring-2 focus:ring-brandGold focus:border-transparent text-center text-lg">
+                
+                <button class="gold-bg text-white px-4 py-3 rounded-md hover:bg-brandGold/90 transition">
+                    ⿲
+                </button>
+                
+                <button class="bg-yellow-700 text-white px-6 py-3 rounded-md hover:bg-yellow-800 transition">
+                    تحقق
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- شريط التنقل السفلي -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-3 px-10 flex justify-between items-center">
+        <button class="text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <button class="text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+        </button>
+    </footer>
+
+</body>
+</html>
